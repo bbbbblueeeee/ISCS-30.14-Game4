@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://cvdo3ttupj2gs"]
+
+[ext_resource type="Texture2D" uid="uid://bjv5c860kwafe" path="res://Assets/Sprites/Fantasy Warrior/Idle.png" id="1_lkv7d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ushfy"]
+atlas = ExtResource("1_lkv7d")
+region = Rect2(0, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_owm7s"]
+atlas = ExtResource("1_lkv7d")
+region = Rect2(162, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nytcm"]
+atlas = ExtResource("1_lkv7d")
+region = Rect2(324, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejsiy"]
+atlas = ExtResource("1_lkv7d")
+region = Rect2(486, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mse5"]
+atlas = ExtResource("1_lkv7d")
+region = Rect2(648, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_reotu"]
+atlas = ExtResource("1_lkv7d")
+region = Rect2(810, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5ess"]
+atlas = ExtResource("1_lkv7d")
+region = Rect2(972, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbia7"]
+atlas = ExtResource("1_lkv7d")
+region = Rect2(1134, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kq7hj"]
+atlas = ExtResource("1_lkv7d")
+region = Rect2(1296, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7iw6i"]
+atlas = ExtResource("1_lkv7d")
+region = Rect2(1458, 0, 162, 162)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sd078"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ushfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owm7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nytcm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejsiy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mse5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_reotu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5ess")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbia7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kq7hj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7iw6i")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}]
+
+[node name="Character" type="CharacterBody2D" unique_id=1847470919]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1029185935]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_sd078")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.7246324
+
+[node name="focus" type="Sprite2D" parent="." unique_id=1099176029]
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1362434260]
+offset_right = 4.0
+offset_bottom = 27.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=507871136]
