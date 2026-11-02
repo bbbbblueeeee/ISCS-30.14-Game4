@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dyv3b0wwbh5b4" path="res://Scenes/enemy_group.tscn" id="1_b25br"]
 [ext_resource type="Texture2D" uid="uid://quthelngkysh" path="res://Assets/Sprites/Others/Background.png" id="1_hdvqd"]
+[ext_resource type="PackedScene" uid="uid://7i8u8repuecx" path="res://Scenes/player_group.tscn" id="3_anwxn"]
 
 [node name="BattleScene" type="Node2D" unique_id=1401716114]
 
@@ -12,3 +13,5 @@ offset_bottom = 750.0
 texture = ExtResource("1_hdvqd")
 
 [node name="EnemyGroup" parent="." unique_id=257778756 instance=ExtResource("1_b25br")]
+
+[node name="PlayerGroup" parent="." unique_id=143612907 instance=ExtResource("3_anwxn")]
