@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cvdo3ttupj2gs"]
 
 [ext_resource type="Texture2D" uid="uid://bjv5c860kwafe" path="res://Assets/Sprites/Fantasy Warrior/Idle.png" id="1_lkv7d"]
+[ext_resource type="Script" uid="uid://basuhysahsafl" path="res://Scripts/character.gd" id="1_owm7s"]
 [ext_resource type="Texture2D" uid="uid://civ3nkihq2b4u" path="res://Assets/Sprites/Others/Selector.png" id="2_ushfy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ushfy"]
@@ -134,6 +135,8 @@ _data = {
 }
 
 [node name="Character" type="CharacterBody2D" unique_id=1847470919]
+scale = Vector2(0.75, 0.75)
+script = ExtResource("1_owm7s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1029185935]
 texture_filter = 1

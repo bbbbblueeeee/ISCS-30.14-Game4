@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dyv3b0wwbh5b4"]
+
+[ext_resource type="Script" uid="uid://dbruv7xq6bdod" path="res://Scripts/enemy_group.gd" id="1_sib6e"]
+[ext_resource type="PackedScene" uid="uid://cvdo3ttupj2gs" path="res://Scenes/character.tscn" id="2_8x4yu"]
+
+[node name="EnemyGroup" type="Node2D" unique_id=257778756]
+script = ExtResource("1_sib6e")
+
+[node name="Character" parent="." unique_id=1847470919 instance=ExtResource("2_8x4yu")]
+
+[node name="Character2" parent="." unique_id=811069386 instance=ExtResource("2_8x4yu")]
+
+[node name="Character3" parent="." unique_id=1066689900 instance=ExtResource("2_8x4yu")]
+
+[node name="Character4" parent="." unique_id=144476217 instance=ExtResource("2_8x4yu")]
