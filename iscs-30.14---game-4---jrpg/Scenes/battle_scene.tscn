@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://rwnb1wbi70i6"]
+
+[ext_resource type="PackedScene" uid="uid://dyv3b0wwbh5b4" path="res://Scenes/enemy_group.tscn" id="1_b25br"]
+[ext_resource type="Texture2D" uid="uid://quthelngkysh" path="res://Assets/Sprites/Others/Background.png" id="1_hdvqd"]
+
+[node name="BattleScene" type="Node2D" unique_id=1401716114]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1775066157]
+self_modulate = Color(0.8004918, 0.8004904, 0.8004907, 1)
+offset_right = 750.0
+offset_bottom = 750.0
+texture = ExtResource("1_hdvqd")
+
+[node name="EnemyGroup" parent="." unique_id=257778756 instance=ExtResource("1_b25br")]
