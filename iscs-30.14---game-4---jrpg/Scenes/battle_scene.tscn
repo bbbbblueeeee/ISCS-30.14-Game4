@@ -15,3 +15,27 @@ texture = ExtResource("1_hdvqd")
 [node name="EnemyGroup" parent="." unique_id=257778756 instance=ExtResource("1_b25br")]
 
 [node name="PlayerGroup" parent="." unique_id=143612907 instance=ExtResource("3_anwxn")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1886232578]
+
+[node name="Choice" type="VBoxContainer" parent="CanvasLayer" unique_id=219482944]
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 40.0
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0.52, 6.055)
+offset_transform_scale = Vector2(1.595, 1.595)
+
+[node name="Attack" type="Button" parent="CanvasLayer/Choice" unique_id=572353146]
+layout_mode = 2
+text = "Attack"
+
+[node name="Defend" type="Button" parent="CanvasLayer/Choice" unique_id=385904297]
+layout_mode = 2
+disabled = true
+text = "Defend"
+
+[node name="Item" type="Button" parent="CanvasLayer/Choice" unique_id=1850474213]
+layout_mode = 2
+disabled = true
+text = "Item"
