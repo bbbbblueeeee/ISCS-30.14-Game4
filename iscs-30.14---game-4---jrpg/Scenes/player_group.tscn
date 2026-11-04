@@ -156,6 +156,10 @@ script = ExtResource("1_052o3")
 sprite_frames = SubResource("SpriteFrames_f18lv")
 frame_progress = 0.0
 
+[node name="ProgressBar" parent="Character" index="2" unique_id=1362434260]
+max_value = 100.0
+value = 100.0
+
 [node name="Character2" parent="." unique_id=1492319277 instance=ExtResource("1_14p02")]
 
 [node name="AnimatedSprite2D" parent="Character2" index="0" unique_id=1029185935]
@@ -165,6 +169,8 @@ frame_progress = 0.4560914
 [node name="ProgressBar" parent="Character2" index="2" unique_id=1362434260]
 offset_top = 60.0
 offset_bottom = 87.0
+max_value = 100.0
+value = 100.0
 
 [editable path="Character"]
 [editable path="Character2"]
