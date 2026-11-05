@@ -22,9 +22,18 @@ func _on_enemy_group_next_player() -> void:
 		index += 1
 		switch_focus(index, index-1)
 	else:
-		index = 0
-		switch_focus(index, players.size()-1)
+		_reset_focus()
+
+func _reset_focus():
+	index = 0
+	for player in players:
+		player.unfocus()
 
 func switch_focus(new, old):
 	players[new].focus()
 	players[old].unfocus()
+
+
+func _on_enemy_group_battle_status_changed(battle_ongoing: Variant) -> void:
+	if not battle_ongoing:
+		players[0].focus()
