@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cy65fveoadnts" path="res://Scripts/battle_scene.gd" id="1_e5vbs"]
 [ext_resource type="Texture2D" uid="uid://quthelngkysh" path="res://Assets/Sprites/Others/Background.png" id="1_hdvqd"]
 [ext_resource type="PackedScene" uid="uid://7i8u8repuecx" path="res://Scenes/player_group.tscn" id="3_anwxn"]
+[ext_resource type="Script" uid="uid://lw2a31mg0c4a" path="res://Scripts/choice.gd" id="5_3gnqe"]
 
 [node name="BattleScene" type="Node2D" unique_id=1401716114]
 script = ExtResource("1_e5vbs")
@@ -27,6 +28,7 @@ offset_bottom = 40.0
 offset_transform_enabled = true
 offset_transform_position_ratio = Vector2(0.52, 6.055)
 offset_transform_scale = Vector2(1.595, 1.595)
+script = ExtResource("5_3gnqe")
 
 [node name="Attack" type="Button" parent="CanvasLayer/Choice" unique_id=572353146]
 layout_mode = 2
@@ -40,8 +42,6 @@ text = "Defend"
 layout_mode = 2
 text = "Item"
 
-[connection signal="battle_status_changed" from="EnemyGroup" to="PlayerGroup" method="_on_enemy_group_battle_status_changed"]
-[connection signal="next_player" from="EnemyGroup" to="PlayerGroup" method="_on_enemy_group_next_player"]
-[connection signal="pressed" from="CanvasLayer/Choice/Attack" to="EnemyGroup" method="_on_attack_pressed"]
-[connection signal="pressed" from="CanvasLayer/Choice/Defend" to="EnemyGroup" method="_on_defend_pressed"]
-[connection signal="pressed" from="CanvasLayer/Choice/Item" to="EnemyGroup" method="_on_item_pressed"]
+[connection signal="pressed" from="CanvasLayer/Choice/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="CanvasLayer/Choice/Defend" to="." method="_on_defend_pressed"]
+[connection signal="pressed" from="CanvasLayer/Choice/Item" to="." method="_on_item_pressed"]

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dbruv7xq6bdod" path="res://Scripts/enemy_group.gd" id="1_sib6e"]
 [ext_resource type="PackedScene" uid="uid://cvdo3ttupj2gs" path="res://Scenes/character.tscn" id="2_8x4yu"]
 [ext_resource type="Texture2D" uid="uid://cxu0pqy05wljy" path="res://Assets/Sprites/Monsters Creatures Fantasy 2/Bat/fly.png" id="3_8x4yu"]
+[ext_resource type="Script" uid="uid://b3px7jiimgqkn" path="res://Scripts/stats_component.gd" id="4_4bdcn"]
 [ext_resource type="Texture2D" uid="uid://duwjdhvghq20u" path="res://Assets/Sprites/Monsters Creatures Fantasy 2/Mimic/idle_transformed.png" id="4_5omdf"]
 [ext_resource type="Texture2D" uid="uid://bvbnqo7s15701" path="res://Assets/Sprites/Monsters Creatures Fantasy 2/Rat/idle.png" id="5_wibqv"]
 [ext_resource type="Texture2D" uid="uid://bw5jnrt7ynfdr" path="res://Assets/Sprites/Monsters Creatures Fantasy 2/Slime/idle.png" id="6_nl51i"]
@@ -361,6 +362,10 @@ frame_progress = 0.6482802
 max_value = 100.0
 value = 100.0
 
+[node name="StatsComponent" type="Node" parent="Character" unique_id=110391802]
+script = ExtResource("4_4bdcn")
+metadata/_custom_type_script = "uid://b3px7jiimgqkn"
+
 [node name="Character2" parent="." unique_id=811069386 instance=ExtResource("2_8x4yu")]
 
 [node name="AnimatedSprite2D" parent="Character2" index="0" unique_id=1029185935]
@@ -375,6 +380,10 @@ offset_bottom = 63.0
 max_value = 100.0
 value = 100.0
 
+[node name="StatsComponent" type="Node" parent="Character2" unique_id=241557954]
+script = ExtResource("4_4bdcn")
+metadata/_custom_type_script = "uid://b3px7jiimgqkn"
+
 [node name="Character3" parent="." unique_id=1066689900 instance=ExtResource("2_8x4yu")]
 
 [node name="AnimatedSprite2D" parent="Character3" index="0" unique_id=1029185935]
@@ -387,6 +396,10 @@ offset_bottom = 61.666664
 max_value = 100.0
 value = 100.0
 
+[node name="StatsComponent" type="Node" parent="Character3" unique_id=1804941974]
+script = ExtResource("4_4bdcn")
+metadata/_custom_type_script = "uid://b3px7jiimgqkn"
+
 [node name="Character4" parent="." unique_id=144476217 instance=ExtResource("2_8x4yu")]
 
 [node name="AnimatedSprite2D" parent="Character4" index="0" unique_id=1029185935]
@@ -398,6 +411,10 @@ offset_top = 32.0
 offset_bottom = 59.0
 max_value = 100.0
 value = 100.0
+
+[node name="StatsComponent" type="Node" parent="Character4" unique_id=196568881]
+script = ExtResource("4_4bdcn")
+metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
 [editable path="Character"]
 [editable path="Character2"]
