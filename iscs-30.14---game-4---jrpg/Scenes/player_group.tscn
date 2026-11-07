@@ -164,7 +164,6 @@ value = 100.0
 
 [node name="StatsComponent" type="Node" parent="Character" unique_id=615995068]
 script = ExtResource("4_ul4kx")
-title = "Warrior"
 attack = 15
 defense = 7
 speed = 8
@@ -186,11 +185,15 @@ value = 100.0
 
 [node name="StatsComponent" type="Node" parent="Character2" unique_id=2116710020]
 script = ExtResource("4_ul4kx")
-title = "Huntress"
 speed = 15
 crit_rate = 0.5
 crit_damage = 1.75
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
+
+[connection signal="damage_blocked" from="Character" to="." method="_on_character_damage_blocked"]
+[connection signal="damage_taken" from="Character" to="." method="_on_character_damage_taken"]
+[connection signal="damage_blocked" from="Character2" to="." method="_on_character_2_damage_blocked"]
+[connection signal="damage_taken" from="Character2" to="." method="_on_character_2_damage_taken"]
 
 [editable path="Character"]
 [editable path="Character2"]

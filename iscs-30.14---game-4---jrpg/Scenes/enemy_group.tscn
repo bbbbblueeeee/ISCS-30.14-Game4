@@ -286,7 +286,6 @@ value = 100.0
 
 [node name="StatsComponent" type="Node" parent="Character" unique_id=110391802]
 script = ExtResource("4_4bdcn")
-title = "Giant Bat"
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
 [node name="Character2" parent="." unique_id=811069386 instance=ExtResource("2_8x4yu")]
@@ -306,7 +305,6 @@ value = 100.0
 
 [node name="StatsComponent" type="Node" parent="Character2" unique_id=241557954]
 script = ExtResource("4_4bdcn")
-title = "Mimic"
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
 [node name="Character3" parent="." unique_id=144476217 instance=ExtResource("2_8x4yu")]
@@ -324,8 +322,14 @@ value = 100.0
 
 [node name="StatsComponent" type="Node" parent="Character3" unique_id=196568881]
 script = ExtResource("4_4bdcn")
-title = "Slime"
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
+
+[connection signal="damage_blocked" from="Character" to="." method="_on_character_damage_blocked"]
+[connection signal="damage_taken" from="Character" to="." method="_on_character_damage_taken"]
+[connection signal="damage_blocked" from="Character2" to="." method="_on_character_2_damage_blocked"]
+[connection signal="damage_taken" from="Character2" to="." method="_on_character_2_damage_taken"]
+[connection signal="damage_blocked" from="Character3" to="." method="_on_character_3_damage_blocked"]
+[connection signal="damage_taken" from="Character3" to="." method="_on_character_3_damage_taken"]
 
 [editable path="Character"]
 [editable path="Character2"]

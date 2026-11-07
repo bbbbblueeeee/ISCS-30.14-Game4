@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var BattleScene = $".."
+
 var players: Array = []
 
 # Called when the node enters the scene tree for the first time.
@@ -25,3 +27,19 @@ func switch_focus(new, old):
 func reset_block():
 	for player in players:
 		player.stats.block = 0
+
+
+func _on_character_damage_blocked(text: String) -> void:
+	BattleScene.queue_text(text)
+
+
+func _on_character_2_damage_blocked(text: String) -> void:
+	BattleScene.queue_text(text)
+
+
+func _on_character_2_damage_taken(text: String) -> void:
+	BattleScene.queue_text(text)
+
+
+func _on_character_damage_taken(text: String) -> void:
+	pass # Replace with function body.

@@ -3,12 +3,19 @@ extends Node2D
 @onready var enemy_group: Node2D = $EnemyGroup
 @onready var player_group: Node2D = $PlayerGroup
 @onready var choice: VBoxContainer = $CanvasLayer/Choice
+@onready var dialogue_text: RichTextLabel = $textBox/ColorRect/VBoxContainer/RichTextLabel
+
+@export var character_delay: float = 0.02
+@export var line_delay: float = 0.05 
 
 var player_index: int = 0
 var enemy_index: int = 0
 var action_queue: Array = []
 var is_attacking: bool = false
 var is_battling: bool = false
+var tween: Tween
+var line_queue: Array[String] = []
+var is_printing: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -88,28 +95,49 @@ func resolve_actions():
 			else:
 				final_dmg = active_stats.attack
 			print(actor.title+" attacks "+recipient.title+" for "+str(final_dmg)+" damage.")
+			queue_text(actor.title+" attacks "+recipient.title+" for "+str(final_dmg)+" damage.")
 			if is_crit:
 				print("It's a critical hit!")
+				queue_text("It's a critical hit!")
 			recipient.take_damage(final_dmg)
 		elif i[2]==2:
 			active_stats.block = active_stats.defense
 			print(actor.title+" defends themself.")
+			queue_text(actor.title+" defends themself.")
 		await get_tree().create_timer(1).timeout
 	action_queue.clear()
 	player_group.reset_block()
 	enemy_group.reset_block()
 	is_battling = false
 	player_group.players[0].focus()
-	begin_choosing_action()
-
+	queue_text("PRESS SPACE TO CHOOSE NEXT ACTION.")
+	
+	
+func _unhandled_input(event: InputEvent) -> void:
+	start_next_action(event)
+	
+	
+func start_next_action(event: InputEvent) -> void:
+	if not is_battling:
+		if event.is_action_pressed("choose_next_action"):
+			get_viewport().set_input_as_handled()
+			begin_choosing_action()
 
 func begin_choosing_action():
 	print("DEBUG: Is Attacking- "+str(is_attacking))
 	choice.show()
 	choice.set_initial_focus()
+	dialogue_text.hide()
+	if tween and tween.is_running():
+		tween.kill()
+	line_queue.clear()
+	dialogue_text.text = ""
+	dialogue_text.visible_characters = 0
+	is_printing = false
 
 func _on_attack_pressed() -> void:
 	choice.hide()
+	dialogue_text.show()
 	enemy_index = 0
 	enemy_group.start_choosing()
 	is_attacking=true
@@ -131,3 +159,39 @@ func _on_defend_pressed() -> void:
 func _on_item_pressed() -> void:
 	choice.hide()
 	print("DEBUG: put item code here lol idk how")
+
+func queue_text(new_text: String) -> void:
+	line_queue.append(new_text)
+	if not is_printing:
+		_update_queue()
+
+func _update_queue() -> void:
+	if line_queue.is_empty():
+		is_printing = false
+		return
+		
+	is_printing = true
+	var next_line = line_queue.pop_front()
+	
+	print_to_dialogue(next_line)
+		
+func print_to_dialogue(text: String) -> void:
+	if dialogue_text.text != "":
+		dialogue_text.text += "\n" + text
+	else:
+		dialogue_text.text = text
+	
+	var start_characters = dialogue_text.visible_characters	
+	var total_characters = dialogue_text.get_total_character_count()
+	var duration = text.length() * character_delay
+	
+	if tween and tween.is_running():
+		tween.kill()
+	
+	tween = create_tween()
+	tween.tween_property(dialogue_text, "visible_characters", total_characters, duration).from(start_characters)
+	tween.finished.connect(_on_line_finished)
+	
+func _on_line_finished() -> void:
+	await get_tree().create_timer(line_delay).timeout
+	_update_queue()

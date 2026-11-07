@@ -8,6 +8,9 @@ extends CharacterBody2D
 
 @export var title: String
 
+signal damage_taken(text: String)
+signal damage_blocked(text: String)
+
 func _ready() -> void:
 	pass
 
@@ -30,7 +33,9 @@ func take_damage(value):
 	stats.current_health -= value - stats.block
 	if stats.block != 0:
 		print(title+" blocked "+str(stats.block)+" damage.")
+		damage_blocked.emit(title+" blocked "+str(stats.block)+" damage.")
 	print(title+" took "+str(value - stats.block)+" damage.")
+	damage_taken.emit(title+" took "+str(value - stats.block)+" damage.")
 	
 	if value > stats.block:
 		stats.block = 0

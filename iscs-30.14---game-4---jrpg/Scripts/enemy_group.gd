@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var choice: VBoxContainer = $"../CanvasLayer/Choice"
+@onready var BattleScene = $".."
 
 var enemies: Array = [] 
 var action_queue: Array = []
@@ -36,3 +37,22 @@ func start_choosing():
 func reset_block():
 	for enemy in enemies:
 		enemy.stats.block = 0
+
+
+func _on_character_damage_blocked(text: String) -> void:
+	BattleScene.queue_text(text)
+
+func _on_character_2_damage_blocked(text: String) -> void:
+	BattleScene.queue_text(text)
+
+func _on_character_3_damage_blocked(text: String) -> void:
+	BattleScene.queue_text(text)
+
+func _on_character_3_damage_taken(text: String) -> void:
+	BattleScene.queue_text(text)
+
+func _on_character_2_damage_taken(text: String) -> void:
+	BattleScene.queue_text(text)
+
+func _on_character_damage_taken(text: String) -> void:
+	BattleScene.queue_text(text)
