@@ -76,4 +76,4 @@ func _on_character_2_damage_taken(text: String) -> void:
 
 
 func _on_character_damage_taken(text: String) -> void:
-	pass # Replace with function body.
+	BattleScene.queue_text(text)

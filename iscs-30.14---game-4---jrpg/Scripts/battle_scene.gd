@@ -17,6 +17,7 @@ var is_battling: bool = false
 var tween: Tween
 var line_queue: Array[String] = []
 var is_printing: bool = false
+var enable_space: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -150,6 +151,7 @@ func resolve_actions():
 	player_group.players[0].reset_stats()
 	player_group.players[1].reset_stats()
 	player_group.players[0].focus()
+	enable_space = true
 	queue_text("PRESS SPACE TO CHOOSE NEXT ACTION.")
 	
 	
@@ -158,10 +160,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	
 func start_next_action(event: InputEvent) -> void:
-	if not is_battling:
-		if event.is_action_pressed("choose_next_action"):
-			get_viewport().set_input_as_handled()
-			begin_choosing_action()
+	if is_battling:
+		return
+	if enable_space and event.is_action_pressed("choose_next_action"):
+		get_viewport().set_input_as_handled()
+		begin_choosing_action()
+		enable_space = false
 
 func begin_choosing_action():
 	print("DEBUG: Is Attacking- "+str(is_attacking))
