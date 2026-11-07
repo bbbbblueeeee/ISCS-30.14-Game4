@@ -843,13 +843,12 @@ title = "Giant Bat"
 position = Vector2(717.1667, 305.16666)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_vo7ap")
-animation = &"hurt"
+animation = &"death"
 flip_h = true
 
 [node name="focus" parent="Character" index="1" unique_id=519257910]
 position = Vector2(690.66675, 198.66672)
 rotation = 0.0
-animation = &"death"
 
 [node name="ProgressBar" parent="Character" index="2" unique_id=1362434260]
 offset_left = 628.4167
@@ -876,7 +875,6 @@ flip_h = true
 [node name="focus" parent="Character2" index="1" unique_id=519257910]
 position = Vector2(498.6667, 321.33337)
 rotation = 0.0
-animation = &"death"
 
 [node name="ProgressBar" parent="Character2" index="2" unique_id=1362434260]
 offset_left = 435.5
@@ -903,7 +901,6 @@ flip_h = true
 [node name="focus" parent="Character3" index="1" unique_id=519257910]
 position = Vector2(778.6667, 419.99994)
 rotation = 0.0
-animation = &"death"
 
 [node name="ProgressBar" parent="Character3" index="2" unique_id=1362434260]
 offset_left = 714.3334

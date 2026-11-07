@@ -47,6 +47,7 @@ func play_animation_attack():
 # Shows the Focus, AKA the arrow pointing to a character.
 func focus():
 	_focus.show()
+	print("showin focus")
 
 # Hides the Focus, AKA the arrow pointing to a character.
 func unfocus():
