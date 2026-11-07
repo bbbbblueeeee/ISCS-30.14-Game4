@@ -339,5 +339,10 @@ crit_rate = 0.5
 crit_damage = 1.75
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
+[connection signal="damage_blocked" from="Character" to="." method="_on_character_damage_blocked"]
+[connection signal="damage_taken" from="Character" to="." method="_on_character_damage_taken"]
+[connection signal="damage_blocked" from="Character2" to="." method="_on_character_2_damage_blocked"]
+[connection signal="damage_taken" from="Character2" to="." method="_on_character_2_damage_taken"]
+
 [editable path="Character"]
 [editable path="Character2"]
