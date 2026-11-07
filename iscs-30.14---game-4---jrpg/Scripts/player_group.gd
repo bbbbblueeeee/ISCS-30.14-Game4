@@ -25,19 +25,14 @@ func switch_focus(new, old):
 	players[old].unfocus()
 
 
-func reset_block():
-	for player in players:
-		player.stats.block = 0
-
-
 func choose_attack(player: int):
 	if player == 0:
 		AttackOp1.text = "Grand Slash"
 		AttackOp2.text = "Sweeping Sword"
 		AttackOp3.text = "Battle Cry"
 	elif player == 1:
-		AttackOp1.text = "Quick Throw"
-		AttackOp2.text = "Calculated Strike"
+		AttackOp1.text = "Calculated Shot"
+		AttackOp2.text = "Quick Strike"
 		AttackOp3.text = "Swift Step"
 	else:
 		print("No player chosen")
@@ -46,21 +41,16 @@ func set_atk_stats(p: int, atk: int) -> void:
 	if p == 0:
 		if atk == 1:
 			players[p].update_attack(30)
-		if atk == 2:
-			players[p].update_attack(15)
-		if atk == 3:
-			players[p].update_critrate(0.25)
-			players[1].update_critrate(0.25)
+		elif atk == 3:
+			players[p].update_defense(2)
+			players[1].update_defense(2)
 	elif p == 1:
 		if atk == 1:
 			players[p].update_attack(20)
-			players[p].update_speed(30)
-		if atk == 2:
-			players[p].update_attack(25)
-			players[p].update_critrate(0.40)
-			players[p].update_critdamage(1.5)
-		if atk == 3:
-			players[p].update_speed(10)
+			players[p].update_critrate(0.5)
+		elif atk == 3:
+			players[p].update_speed(1)
+			players[1].update_speed(1)
 		
 
 func _on_character_damage_blocked(text: String) -> void:

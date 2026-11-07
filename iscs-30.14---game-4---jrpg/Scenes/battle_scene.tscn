@@ -71,7 +71,7 @@ text = "Defend"
 
 [node name="Item" type="Button" parent="CanvasLayer/Choice" unique_id=1850474213]
 layout_mode = 2
-text = "Item"
+disabled = true
 
 [node name="Attack Options" type="VBoxContainer" parent="CanvasLayer" unique_id=774350944]
 offset_top = 105.0

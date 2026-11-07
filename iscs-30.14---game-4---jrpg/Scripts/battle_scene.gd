@@ -7,13 +7,14 @@ extends Node2D
 @onready var atk_opts: VBoxContainer = $"CanvasLayer/Attack Options"
 
 @export var character_delay: float = 0.02
-@export var line_delay: float = 0.05 
+@export var line_delay: float = 0.05
 
 var player_index: int = 0
 var enemy_index: int = 0
 var action_queue: Array = []
 var is_attacking: bool = false
 var is_battling: bool = false
+var has_special_effect: bool = false
 var tween: Tween
 var line_queue: Array[String] = []
 var is_printing: bool = false
@@ -37,11 +38,12 @@ func _process(delta: float) -> void:
 				enemy_index += 1
 				enemy_group.switch_focus(enemy_index, enemy_index-1)
 		elif Input.is_action_just_pressed("ui_accept"): # ui_accept = either Enter or Space
-			action_queue.append([true,player_index,1,enemy_index])
+			action_queue.append([true,player_index,1,enemy_index,false,has_special_effect])
 			# true signifies the player is taking action
 			# 1 signifies the action is an attack
 			enemy_group.unfocus_all()
 			is_attacking=false
+			has_special_effect = false
 			confirm_move()
 
 
@@ -69,7 +71,7 @@ func generate_enemy_actions():
 			# used 1 and 2 for attack and defend
 			# can add more numbers for special enemy moves
 			var player_number = randi_range(0,1)
-			action_queue.append([false,enemy_number,action_number,player_number])
+			action_queue.append([false,enemy_number,action_number,player_number,false,false])
 			enemy_number += 1
 
 # uses quicksort to sort all the actions based on speed
@@ -107,9 +109,10 @@ func sort_actions(arr: Array):
 
 func resolve_actions():
 	action_queue = sort_actions(action_queue)
-	print(action_queue)
 	for i in action_queue:
 		var is_player_acting: bool = i[0]
+		var is_multitarget: bool = i[4]
+		var has_effect: bool = i[5]
 		var actor
 		var active_stats
 		var recipient
@@ -123,7 +126,7 @@ func resolve_actions():
 			active_stats = enemy_group.enemies[i[1]].stats
 			recipient = player_group.players[i[3]]
 		# if the action is an attack
-		if i[2]==1:				
+		if i[2]==1:
 			var final_dmg
 			var is_crit: bool = false
 			if randf()<active_stats.crit_rate:
@@ -131,25 +134,46 @@ func resolve_actions():
 				is_crit = true
 			else:
 				final_dmg = active_stats.attack
-			print(actor.title+" attacks "+recipient.title+" for "+str(final_dmg)+" damage.")
-			queue_text(actor.title+" attacks "+recipient.title+" for "+str(final_dmg)+" damage.")
+			if is_multitarget:
+				queue_text(actor.title+" ATTACKS all enemies for "+str(final_dmg)+" DAMAGE.")
+				for enemy in enemy_group.enemies:
+					enemy.take_damage(final_dmg)
+			else:
+				queue_text(actor.title+" ATTACKS "+recipient.title+" for "+str(final_dmg)+" DAMAGE.")
+				recipient.take_damage(final_dmg)
 			if is_crit:
-				print("It's a critical hit!")
-				queue_text("It's a critical hit!")
+				queue_text("It's a CRITICAL HIT!")
+			if has_effect:
+				if i[1]==0:
+					queue_text("All players' DEFENSE increased by 2.")
+				else:
+					queue_text("All players' SPEED increased by 1.")
 			actor.play_animation_attack()
-			recipient.take_damage(final_dmg)
 		elif i[2]==2:
-			active_stats.block = active_stats.defense
-			print(actor.title+" defends themself.")
-			queue_text(actor.title+" defends themself.")
-		print("---------------")
+			if is_player_acting:
+				active_stats.block = active_stats.defense
+				queue_text(actor.title+" DEFENDS themself.")
+			else:
+				if i[1]==0:
+					queue_text(actor.title+" ATTACKS "+recipient.title+" for 10 DAMAGE.")
+					queue_text(actor.title+" RESTORES 5 HEALTH ")
+					recipient.take_damage(10)
+					actor.heal(5)
+				elif i[1]==1:
+					active_stats.block = active_stats.defense
+					queue_text(actor.title+" DEFENDS themself.")
+				else:
+					recipient = enemy_group.enemies[i[3]]
+					queue_text(actor.title+" RESTORES 25 HEALTH to "+recipient.title)
+					recipient.heal(25)
+					
 		await get_tree().create_timer(1).timeout
 	action_queue.clear()
-	player_group.reset_block()
-	enemy_group.reset_block()
 	is_battling = false
-	player_group.players[0].reset_stats()
-	player_group.players[1].reset_stats()
+	for player in player_group.players:
+		player.reset_stats()
+	for enemy in enemy_group.enemies:
+		enemy.reset_stats()
 	player_group.players[0].focus()
 	enable_space = true
 	queue_text("PRESS SPACE TO CHOOSE NEXT ACTION.")
@@ -189,7 +213,7 @@ func _on_attack_pressed() -> void:
 func _on_defend_pressed() -> void:
 	choice.hide()
 	dialogue_text.show()
-	action_queue.append([true,player_index,2,0])
+	action_queue.append([true,player_index,2,0,false,false])
 	# 2 signifies the action is a defend
 	# we don't care what the last value is, since it
 	# determines the recipient but our recipient is always
@@ -253,9 +277,13 @@ func _on_op_1_pressed() -> void:
 	atk_skill_confirmed()
 
 func _on_op_2_pressed() -> void:
-	player_group.set_atk_stats(player_index, 2)		
-	atk_skill_confirmed()
+	player_group.set_atk_stats(player_index, 2)
+	atk_opts.hide()
+	dialogue_text.show()
+	action_queue.append([true,player_index,1,0,true,false])
+	confirm_move()
 
 func _on_op_3_pressed() -> void:
-	player_group.set_atk_stats(player_index, 3)		
+	player_group.set_atk_stats(player_index, 3)
+	has_special_effect = true
 	atk_skill_confirmed()

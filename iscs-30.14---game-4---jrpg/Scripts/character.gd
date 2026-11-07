@@ -8,6 +8,8 @@ extends CharacterBody2D
 
 @export var title: String
 
+var is_alive: bool = true
+
 signal damage_taken(text: String)
 signal damage_blocked(text: String)
 
@@ -22,19 +24,22 @@ func play_animation_hurt():
 	anim_player.play("hurt")
 
 func update_attack(dmg: int):
-	stats.attack = dmg
+	stats.current_attack = dmg
+	
+func update_defense(def: int):
+	stats.defense += def
 	
 func update_critrate(rt: float):
-	stats.crit_rate = rt
+	stats.current_crit_rate += rt
 	
 func update_critdamage(dmg: float):
-	stats.crit_damage = dmg
+	stats.current_crit_damage += dmg
 
 func update_speed(spd: int):
 	stats.speed += spd
 
 func reset_stats():
-	stats.reset_base_stats()
+	stats.reset_stats()
 
 func play_animation_attack():
 	sprite.play("attack")
@@ -50,20 +55,23 @@ func unfocus():
 # Deals damage via subtraction
 func take_damage(value):
 	stats.current_health -= value - stats.block
-	if stats.block != 0:
-		print(title+" blocked "+str(stats.block)+" damage.")
-		damage_blocked.emit(title+" blocked "+str(stats.block)+" damage.")
-	print(title+" took "+str(value - stats.block)+" damage.")
-	damage_taken.emit(title+" took "+str(value - stats.block)+" damage.")
 	
 	if value > stats.block:
+		if stats.block != 0:
+			damage_blocked.emit(title+" blocked "+str(stats.block)+" DAMAGE.")
 		stats.block = 0
 	else:
+		damage_blocked.emit(title+" blocked "+str(value)+" DAMAGE.")
 		stats.block -= value
-		
+	
+	damage_taken.emit(title+" took "+str(clamp(value - stats.block,0,100))+" DAMAGE.")
 	update_hp_bar()
 	await get_tree().create_timer(0.5).timeout
 	play_animation_hurt()
+
+func heal(value):
+	stats.current_health += value
+	update_hp_bar()
 
 # Specifically made for enemies to face the player characters, since
 # enemies are on the right.
@@ -72,4 +80,12 @@ func flip_sprite():
 
 
 func _on_animation_finished() -> void:
-	sprite.play("idle")
+	if is_alive:
+		sprite.play("idle")
+
+
+func _on_no_health() -> void:
+	print("dead")
+	sprite.play("death")
+	sprite.modulate=Color.DIM_GRAY
+	is_alive = false
