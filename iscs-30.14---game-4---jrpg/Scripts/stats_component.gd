@@ -8,6 +8,7 @@ extends Node
 @export var crit_rate: float = 0.25
 @export var crit_damage: float = 1.50
 
+
 var current_health: float = max_health:
 	set(value):
 		current_health = value

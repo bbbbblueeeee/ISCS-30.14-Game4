@@ -28,6 +28,8 @@ func take_damage(value):
 	stats_component.current_health -= value
 	update_hp_bar()
 	play_animation_hurt()
-	
+
+# Specifically made for enemies to face the player characters, since
+# enemies are on the right.
 func flip_sprite():
 	sprite.flip_h = true
