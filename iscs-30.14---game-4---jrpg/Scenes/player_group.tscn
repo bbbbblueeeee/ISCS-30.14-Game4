@@ -3,8 +3,52 @@
 [ext_resource type="PackedScene" uid="uid://cvdo3ttupj2gs" path="res://Scenes/character.tscn" id="1_14p02"]
 [ext_resource type="Script" uid="uid://bsvlx6s4vk0n0" path="res://Scripts/player_group.gd" id="1_052o3"]
 [ext_resource type="Texture2D" uid="uid://bjv5c860kwafe" path="res://Assets/Sprites/Fantasy Warrior/Idle.png" id="2_kqkyk"]
+[ext_resource type="Texture2D" uid="uid://d4dquhsrhruov" path="res://Assets/Sprites/Fantasy Warrior/Attack1.png" id="3_c7mi7"]
 [ext_resource type="Texture2D" uid="uid://bdm11yj805wm6" path="res://Assets/Sprites/Huntress/Idle.png" id="3_f18lv"]
+[ext_resource type="Texture2D" uid="uid://mdg3jukt2j0o" path="res://Assets/Sprites/Fantasy Warrior/Take hit.png" id="4_c0dxq"]
 [ext_resource type="Script" uid="uid://b3px7jiimgqkn" path="res://Scripts/stats_component.gd" id="4_ul4kx"]
+[ext_resource type="Texture2D" uid="uid://d12sp1fo0qoj3" path="res://Assets/Sprites/Huntress/Attack1.png" id="6_l4giw"]
+[ext_resource type="Texture2D" uid="uid://6d83or36ndo7" path="res://Assets/Sprites/Huntress/Take hit.png" id="8_a4tnp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7u81"]
+atlas = ExtResource("3_c7mi7")
+region = Rect2(0, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1uvda"]
+atlas = ExtResource("3_c7mi7")
+region = Rect2(162, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ft125"]
+atlas = ExtResource("3_c7mi7")
+region = Rect2(324, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sc4ik"]
+atlas = ExtResource("3_c7mi7")
+region = Rect2(486, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4rjw"]
+atlas = ExtResource("3_c7mi7")
+region = Rect2(648, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqtau"]
+atlas = ExtResource("3_c7mi7")
+region = Rect2(810, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqko3"]
+atlas = ExtResource("3_c7mi7")
+region = Rect2(972, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coclb"]
+atlas = ExtResource("4_c0dxq")
+region = Rect2(0, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wvj7y"]
+atlas = ExtResource("4_c0dxq")
+region = Rect2(162, 0, 162, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csoka"]
+atlas = ExtResource("4_c0dxq")
+region = Rect2(324, 0, 162, 162)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ushfy"]
 atlas = ExtResource("2_kqkyk")
@@ -50,6 +94,46 @@ region = Rect2(1458, 0, 162, 162)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_m7u81")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1uvda")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft125")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sc4ik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4rjw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqtau")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqko3")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coclb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wvj7y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csoka")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ushfy")
 }, {
 "duration": 1.0,
@@ -83,6 +167,38 @@ animations = [{
 "name": &"idle",
 "speed": 8.0
 }]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdngn"]
+atlas = ExtResource("6_l4giw")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bdym"]
+atlas = ExtResource("6_l4giw")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlhrj"]
+atlas = ExtResource("6_l4giw")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iw0om"]
+atlas = ExtResource("6_l4giw")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awg6y"]
+atlas = ExtResource("6_l4giw")
+region = Rect2(600, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jadd0"]
+atlas = ExtResource("8_a4tnp")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqleu"]
+atlas = ExtResource("8_a4tnp")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2do2"]
+atlas = ExtResource("8_a4tnp")
+region = Rect2(300, 0, 150, 150)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_052o3"]
 atlas = ExtResource("3_f18lv")
@@ -118,6 +234,40 @@ region = Rect2(1050, 0, 150, 150)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m7u81"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdngn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bdym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlhrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iw0om")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awg6y")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jadd0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqleu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2do2")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_052o3")
@@ -156,7 +306,7 @@ title = "Warrior"
 
 [node name="AnimatedSprite2D" parent="Character" index="0" unique_id=1029185935]
 sprite_frames = SubResource("SpriteFrames_f18lv")
-frame_progress = 0.0
+animation = &"hurt"
 
 [node name="ProgressBar" parent="Character" index="2" unique_id=1362434260]
 max_value = 100.0
@@ -175,7 +325,6 @@ title = "Huntress"
 
 [node name="AnimatedSprite2D" parent="Character2" index="0" unique_id=1029185935]
 sprite_frames = SubResource("SpriteFrames_m7u81")
-frame_progress = 0.4560914
 
 [node name="ProgressBar" parent="Character2" index="2" unique_id=1362434260]
 offset_top = 60.0

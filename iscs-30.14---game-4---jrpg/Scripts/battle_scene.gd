@@ -62,8 +62,7 @@ func generate_enemy_actions():
 			action_queue.append([false,enemy_number,action_number,player_number])
 			enemy_number += 1
 
-# uses quicksort to sort all the actions based on the actor's
-# speed
+# uses quicksort to sort all the actions based on speed
 func sort_actions(arr: Array):
 	if arr.size() <= 1:
 		return arr
@@ -125,6 +124,7 @@ func resolve_actions():
 			print(actor.title+" attacks "+recipient.title+" for "+str(final_dmg)+" damage.")
 			if is_crit:
 				print("It's a critical hit!")
+			actor.play_animation_attack()
 			recipient.take_damage(final_dmg)
 		elif i[2]==2:
 			active_stats.block = active_stats.defense
