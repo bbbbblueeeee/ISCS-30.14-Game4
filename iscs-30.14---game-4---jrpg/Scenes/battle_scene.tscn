@@ -54,8 +54,9 @@ scroll_following_visible_characters = true
 
 [node name="Choice" type="VBoxContainer" parent="CanvasLayer" unique_id=219482944]
 texture_filter = 1
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 125.0
+offset_right = 65.0
+offset_bottom = 203.0
 offset_transform_enabled = true
 offset_transform_position_ratio = Vector2(0.52, 6.055)
 offset_transform_scale = Vector2(1.595, 1.595)
