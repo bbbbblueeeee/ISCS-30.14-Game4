@@ -286,7 +286,7 @@ value = 100.0
 
 [node name="StatsComponent" type="Node" parent="Character" unique_id=110391802]
 script = ExtResource("4_4bdcn")
-title = "Giant Bat"
+speed = 11
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
 [node name="Character2" parent="." unique_id=811069386 instance=ExtResource("2_8x4yu")]
@@ -306,7 +306,7 @@ value = 100.0
 
 [node name="StatsComponent" type="Node" parent="Character2" unique_id=241557954]
 script = ExtResource("4_4bdcn")
-title = "Mimic"
+speed = 7
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
 [node name="Character3" parent="." unique_id=144476217 instance=ExtResource("2_8x4yu")]
@@ -324,7 +324,7 @@ value = 100.0
 
 [node name="StatsComponent" type="Node" parent="Character3" unique_id=196568881]
 script = ExtResource("4_4bdcn")
-title = "Slime"
+speed = 4
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
 [editable path="Character"]

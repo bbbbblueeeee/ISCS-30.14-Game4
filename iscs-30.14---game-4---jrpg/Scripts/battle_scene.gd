@@ -62,14 +62,49 @@ func generate_enemy_actions():
 			action_queue.append([false,enemy_number,action_number,player_number])
 			enemy_number += 1
 
+# uses quicksort to sort all the actions based on the actor's
+# speed
+func sort_actions(arr: Array):
+	if arr.size() <= 1:
+		return arr
+	
+	var pivot = arr[arr.size() - 1]
+	var pivot_speed
+	if pivot[0]:
+		pivot_speed = player_group.players[pivot[1]].stats.speed
+	else:
+		pivot_speed = enemy_group.enemies[pivot[1]].stats.speed
+	var left_array = []
+	var right_array = []
+	
+	for i in range(arr.size()-1):
+		var action = arr[i]
+		var actor_speed
+		if action[0]:
+			actor_speed = player_group.players[action[1]].stats.speed
+		else:
+			actor_speed = enemy_group.enemies[action[1]].stats.speed
+		if actor_speed > pivot_speed:
+			left_array.append(action)
+		else:
+			right_array.append(action)
+	
+	var returned_arr = []
+	returned_arr.append_array(sort_actions(left_array))
+	returned_arr.append(pivot)
+	returned_arr.append_array(sort_actions(right_array))
+	return[returned_arr][0]
+
 
 func resolve_actions():
+	action_queue = sort_actions(action_queue)
+	print(action_queue)
 	for i in action_queue:
 		var is_player_acting: bool = i[0]
 		var actor
 		var active_stats
 		var recipient
-		# sets active_stats varible based on who's acting
+		# sets active_stats variable based on who's acting
 		if is_player_acting:
 			actor = player_group.players[i[1]]
 			active_stats = player_group.players[i[1]].stats
@@ -94,6 +129,7 @@ func resolve_actions():
 		elif i[2]==2:
 			active_stats.block = active_stats.defense
 			print(actor.title+" defends themself.")
+		print("---------------")
 		await get_tree().create_timer(1).timeout
 	action_queue.clear()
 	player_group.reset_block()
