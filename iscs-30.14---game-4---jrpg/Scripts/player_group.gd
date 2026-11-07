@@ -3,6 +3,8 @@ extends Node2D
 var players: Array = []
 
 # Called when the node enters the scene tree for the first time.
+# get_children() populates the array with this node's child nodes
+# The for loop just instantiates the enemy sprites + positions
 func _ready() -> void:
 	players = get_children()
 	for i in players.size():

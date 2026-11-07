@@ -14,13 +14,16 @@ func update_hp_bar():
 
 func play_animation_hurt():
 	anim_player.play("hurt")
-	
+
+# Shows the Focus, AKA the arrow pointing to a character.
 func focus():
 	_focus.show()
 
+# Hides the Focus, AKA the arrow pointing to a character.
 func unfocus():
 	_focus.hide()
 
+# Deals damage via subtraction
 func take_damage(value):
 	stats_component.current_health -= value
 	update_hp_bar()
