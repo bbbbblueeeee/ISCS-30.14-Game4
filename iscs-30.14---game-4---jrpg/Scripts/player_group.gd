@@ -20,3 +20,8 @@ func unfocus_all():
 func switch_focus(new, old):
 	players[new].focus()
 	players[old].unfocus()
+
+
+func reset_block():
+	for player in players:
+		player.stats.block = 0

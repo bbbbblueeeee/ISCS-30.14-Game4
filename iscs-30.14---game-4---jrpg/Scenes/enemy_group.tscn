@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://cxu0pqy05wljy" path="res://Assets/Sprites/Monsters Creatures Fantasy 2/Bat/fly.png" id="3_8x4yu"]
 [ext_resource type="Script" uid="uid://b3px7jiimgqkn" path="res://Scripts/stats_component.gd" id="4_4bdcn"]
 [ext_resource type="Texture2D" uid="uid://duwjdhvghq20u" path="res://Assets/Sprites/Monsters Creatures Fantasy 2/Mimic/idle_transformed.png" id="4_5omdf"]
-[ext_resource type="Texture2D" uid="uid://bvbnqo7s15701" path="res://Assets/Sprites/Monsters Creatures Fantasy 2/Rat/idle.png" id="5_wibqv"]
 [ext_resource type="Texture2D" uid="uid://bw5jnrt7ynfdr" path="res://Assets/Sprites/Monsters Creatures Fantasy 2/Slime/idle.png" id="6_nl51i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5omdf"]
@@ -164,84 +163,6 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oolf5"]
-atlas = ExtResource("5_wibqv")
-region = Rect2(0, 0, 70, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7fpo5"]
-atlas = ExtResource("5_wibqv")
-region = Rect2(70, 0, 70, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bwrpv"]
-atlas = ExtResource("5_wibqv")
-region = Rect2(140, 0, 70, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_df8wf"]
-atlas = ExtResource("5_wibqv")
-region = Rect2(210, 0, 70, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h5ovs"]
-atlas = ExtResource("5_wibqv")
-region = Rect2(280, 0, 70, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ovty3"]
-atlas = ExtResource("5_wibqv")
-region = Rect2(350, 0, 70, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2cikm"]
-atlas = ExtResource("5_wibqv")
-region = Rect2(420, 0, 70, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rv6nt"]
-atlas = ExtResource("5_wibqv")
-region = Rect2(490, 0, 70, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_crb2y"]
-atlas = ExtResource("5_wibqv")
-region = Rect2(560, 0, 70, 70)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0cq2c"]
-atlas = ExtResource("5_wibqv")
-region = Rect2(630, 0, 70, 70)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_bkd3u"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oolf5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7fpo5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bwrpv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_df8wf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h5ovs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ovty3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2cikm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rv6nt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_crb2y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0cq2c")
-}],
-"loop": 1,
-"name": &"idle",
-"speed": 8.0
-}]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_bkd3u"]
 atlas = ExtResource("6_nl51i")
 region = Rect2(0, 0, 156, 156)
@@ -352,6 +273,7 @@ animations = [{
 script = ExtResource("1_sib6e")
 
 [node name="Character" parent="." unique_id=1847470919 instance=ExtResource("2_8x4yu")]
+title = "Giant Bat"
 
 [node name="AnimatedSprite2D" parent="Character" index="0" unique_id=1029185935]
 position = Vector2(5.333332, -32)
@@ -364,9 +286,11 @@ value = 100.0
 
 [node name="StatsComponent" type="Node" parent="Character" unique_id=110391802]
 script = ExtResource("4_4bdcn")
+title = "Giant Bat"
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
 [node name="Character2" parent="." unique_id=811069386 instance=ExtResource("2_8x4yu")]
+title = "Mimic"
 
 [node name="AnimatedSprite2D" parent="Character2" index="0" unique_id=1029185935]
 sprite_frames = SubResource("SpriteFrames_oolf5")
@@ -382,41 +306,27 @@ value = 100.0
 
 [node name="StatsComponent" type="Node" parent="Character2" unique_id=241557954]
 script = ExtResource("4_4bdcn")
+title = "Mimic"
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
-[node name="Character3" parent="." unique_id=1066689900 instance=ExtResource("2_8x4yu")]
+[node name="Character3" parent="." unique_id=144476217 instance=ExtResource("2_8x4yu")]
+title = "Slime"
 
 [node name="AnimatedSprite2D" parent="Character3" index="0" unique_id=1029185935]
-sprite_frames = SubResource("SpriteFrames_bkd3u")
-frame_progress = 0.53740436
-
-[node name="ProgressBar" parent="Character3" index="2" unique_id=1362434260]
-offset_top = 34.666664
-offset_bottom = 61.666664
-max_value = 100.0
-value = 100.0
-
-[node name="StatsComponent" type="Node" parent="Character3" unique_id=1804941974]
-script = ExtResource("4_4bdcn")
-metadata/_custom_type_script = "uid://b3px7jiimgqkn"
-
-[node name="Character4" parent="." unique_id=144476217 instance=ExtResource("2_8x4yu")]
-
-[node name="AnimatedSprite2D" parent="Character4" index="0" unique_id=1029185935]
 sprite_frames = SubResource("SpriteFrames_qq5yi")
 frame_progress = 0.75024533
 
-[node name="ProgressBar" parent="Character4" index="2" unique_id=1362434260]
+[node name="ProgressBar" parent="Character3" index="2" unique_id=1362434260]
 offset_top = 32.0
 offset_bottom = 59.0
 max_value = 100.0
 value = 100.0
 
-[node name="StatsComponent" type="Node" parent="Character4" unique_id=196568881]
+[node name="StatsComponent" type="Node" parent="Character3" unique_id=196568881]
 script = ExtResource("4_4bdcn")
+title = "Slime"
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
 [editable path="Character"]
 [editable path="Character2"]
 [editable path="Character3"]
-[editable path="Character4"]

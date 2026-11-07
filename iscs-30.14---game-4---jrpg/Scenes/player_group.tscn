@@ -152,6 +152,7 @@ animations = [{
 script = ExtResource("1_052o3")
 
 [node name="Character" parent="." unique_id=1847470919 instance=ExtResource("1_14p02")]
+title = "Warrior"
 
 [node name="AnimatedSprite2D" parent="Character" index="0" unique_id=1029185935]
 sprite_frames = SubResource("SpriteFrames_f18lv")
@@ -163,6 +164,7 @@ value = 100.0
 
 [node name="StatsComponent" type="Node" parent="Character" unique_id=615995068]
 script = ExtResource("4_ul4kx")
+title = "Warrior"
 attack = 15
 defense = 7
 speed = 8
@@ -170,6 +172,7 @@ crit_rate = 0.1
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
 [node name="Character2" parent="." unique_id=1492319277 instance=ExtResource("1_14p02")]
+title = "Huntress"
 
 [node name="AnimatedSprite2D" parent="Character2" index="0" unique_id=1029185935]
 sprite_frames = SubResource("SpriteFrames_m7u81")
@@ -183,6 +186,7 @@ value = 100.0
 
 [node name="StatsComponent" type="Node" parent="Character2" unique_id=2116710020]
 script = ExtResource("4_ul4kx")
+title = "Huntress"
 speed = 15
 crit_rate = 0.5
 crit_damage = 1.75

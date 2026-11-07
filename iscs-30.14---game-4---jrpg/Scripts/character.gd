@@ -4,13 +4,15 @@ extends CharacterBody2D
 @onready var _focus: AnimatedSprite2D = $focus
 @onready var hp_bar: ProgressBar = $ProgressBar
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
-@onready var stats_component: StatsComponent = $StatsComponent
+@onready var stats: StatsComponent = $StatsComponent
+
+@export var title: String
 
 func _ready() -> void:
 	pass
 
 func update_hp_bar():
-	hp_bar.value = (stats_component.current_health/stats_component.max_health)*100
+	hp_bar.value = (stats.current_health/stats.max_health)*100
 
 func play_animation_hurt():
 	anim_player.play("hurt")
@@ -25,7 +27,16 @@ func unfocus():
 
 # Deals damage via subtraction
 func take_damage(value):
-	stats_component.current_health -= value
+	stats.current_health -= value - stats.block
+	if stats.block != 0:
+		print(title+" blocked "+str(stats.block)+" damage.")
+	print(title+" took "+str(value - stats.block)+" damage.")
+	
+	if value > stats.block:
+		stats.block = 0
+	else:
+		stats.block -= value
+		
 	update_hp_bar()
 	play_animation_hurt()
 

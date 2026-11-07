@@ -26,7 +26,13 @@ func unfocus_all():
 	for enemy in enemies:
 		enemy.unfocus()
 
+
 func start_choosing():
 	unfocus_all()
 	enemies[0].focus()
-	print("begin choosing enemy")
+	print("DEBUG: begin choosing enemy")
+
+
+func reset_block():
+	for enemy in enemies:
+		enemy.stats.block = 0
