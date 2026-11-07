@@ -181,6 +181,7 @@ func _on_attack_pressed() -> void:
 
 func _on_defend_pressed() -> void:
 	choice.hide()
+	dialogue_text.show()
 	action_queue.append([true,player_index,2,0])
 	# 2 signifies the action is a defend
 	# we don't care what the last value is, since it
@@ -194,6 +195,7 @@ func _on_defend_pressed() -> void:
 
 func _on_item_pressed() -> void:
 	choice.hide()
+	dialogue_text.show()
 	print("DEBUG: put item code here lol idk how")
 
 func queue_text(new_text: String) -> void:
