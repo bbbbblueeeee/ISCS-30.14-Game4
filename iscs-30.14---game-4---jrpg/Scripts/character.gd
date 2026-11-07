@@ -33,6 +33,9 @@ func update_critdamage(dmg: float):
 func update_speed(spd: int):
 	stats.speed += spd
 
+func reset_stats():
+	stats.reset_base_stats()
+
 func play_animation_attack():
 	sprite.play("attack")
 

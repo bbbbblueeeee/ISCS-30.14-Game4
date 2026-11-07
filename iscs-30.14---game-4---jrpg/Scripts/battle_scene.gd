@@ -146,6 +146,8 @@ func resolve_actions():
 	player_group.reset_block()
 	enemy_group.reset_block()
 	is_battling = false
+	player_group.players[0].reset_stats()
+	player_group.players[1].reset_stats()
 	player_group.players[0].focus()
 	queue_text("PRESS SPACE TO CHOOSE NEXT ACTION.")
 	
