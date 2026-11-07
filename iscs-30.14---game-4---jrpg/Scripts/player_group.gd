@@ -31,8 +31,8 @@ func choose_attack(player: int):
 		AttackOp2.text = "Sweeping Sword"
 		AttackOp3.text = "Battle Cry"
 	elif player == 1:
-		AttackOp1.text = "Calculated Shot"
-		AttackOp2.text = "Quick Strike"
+		AttackOp1.text = "Calculated Strike"
+		AttackOp2.text = "Quick Throw"
 		AttackOp3.text = "Swift Step"
 	else:
 		print("No player chosen")
@@ -50,7 +50,7 @@ func set_atk_stats(p: int, atk: int) -> void:
 			players[p].update_critrate(0.5)
 		elif atk == 3:
 			players[p].update_speed(1)
-			players[1].update_speed(1)
+			players[0].update_speed(1)
 		
 
 func _on_character_damage_blocked(text: String) -> void:

@@ -12,7 +12,7 @@ signal no_health
 
 var current_health: float = max_health:
 	set(value):
-		current_health = value
+		current_health = clamp(value,0,max_health)
 		if current_health==0:
 			no_health.emit()
 

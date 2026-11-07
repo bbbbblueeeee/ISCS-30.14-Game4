@@ -125,49 +125,53 @@ func resolve_actions():
 			actor = enemy_group.enemies[i[1]]
 			active_stats = enemy_group.enemies[i[1]].stats
 			recipient = player_group.players[i[3]]
-		# if the action is an attack
-		if i[2]==1:
-			var final_dmg
-			var is_crit: bool = false
-			if randf()<active_stats.crit_rate:
-				final_dmg = active_stats.attack*active_stats.crit_damage
-				is_crit = true
-			else:
-				final_dmg = active_stats.attack
-			if is_multitarget:
-				queue_text(actor.title+" ATTACKS all enemies for "+str(final_dmg)+" DAMAGE.")
-				for enemy in enemy_group.enemies:
-					enemy.take_damage(final_dmg)
-			else:
-				queue_text(actor.title+" ATTACKS "+recipient.title+" for "+str(final_dmg)+" DAMAGE.")
-				recipient.take_damage(final_dmg)
-			if is_crit:
-				queue_text("It's a CRITICAL HIT!")
-			if has_effect:
-				if i[1]==0:
-					queue_text("All players' DEFENSE increased by 2.")
+		if actor.is_alive:
+			# if the action is an attack
+			if i[2]==1:
+				var final_dmg
+				var is_crit: bool = false
+				if randf()<active_stats.crit_rate:
+					final_dmg = active_stats.attack*active_stats.crit_damage
+					is_crit = true
 				else:
-					queue_text("All players' SPEED increased by 1.")
-			actor.play_animation_attack()
-		elif i[2]==2:
-			if is_player_acting:
-				active_stats.block = active_stats.defense
-				queue_text(actor.title+" DEFENDS themself.")
-			else:
-				if i[1]==0:
-					queue_text(actor.title+" ATTACKS "+recipient.title+" for 10 DAMAGE.")
-					queue_text(actor.title+" RESTORES 5 HEALTH ")
-					recipient.take_damage(10)
-					actor.heal(5)
-				elif i[1]==1:
+					final_dmg = active_stats.attack
+				if is_multitarget:
+					queue_text(actor.title+" ATTACKS all enemies for "+str(final_dmg)+" DAMAGE.")
+					for enemy in enemy_group.enemies:
+						enemy.take_damage(final_dmg)
+				else:
+					queue_text(actor.title+" ATTACKS "+recipient.title+" for "+str(final_dmg)+" DAMAGE.")
+					recipient.take_damage(final_dmg)
+				if is_crit:
+					queue_text("It's a CRITICAL HIT!")
+				if has_effect:
+					if i[1]==0:
+						queue_text("All players' DEFENSE increased by 2.")
+					else:
+						queue_text("All players' SPEED increased by 1.")
+				actor.play_animation_attack()
+			elif i[2]==2:
+				if is_player_acting:
 					active_stats.block = active_stats.defense
 					queue_text(actor.title+" DEFENDS themself.")
 				else:
-					recipient = enemy_group.enemies[i[3]]
-					queue_text(actor.title+" RESTORES 25 HEALTH to "+recipient.title)
-					recipient.heal(25)
-					
-		await get_tree().create_timer(1).timeout
+					if i[1]==0:
+						queue_text(actor.title+" ATTACKS "+recipient.title+" for 10 DAMAGE.")
+						queue_text(actor.title+" RESTORES 5 HEALTH.")
+						actor.play_animation_attack()
+						recipient.take_damage(10)
+						actor.heal(5)
+					elif i[1]==1:
+						active_stats.block = active_stats.defense
+						queue_text(actor.title+" DEFENDS themself.")
+					else:
+						recipient = enemy_group.enemies[i[3]]
+						queue_text(actor.title+" RESTORES 25 HEALTH to "+recipient.title)
+						recipient.heal(25)
+			elif i[2]==3:
+				queue_text(actor.title+" RESTORES 5 HEALTH.")
+				actor.heal(5)
+			await get_tree().create_timer(1).timeout
 	action_queue.clear()
 	is_battling = false
 	for player in player_group.players:
@@ -227,7 +231,8 @@ func _on_defend_pressed() -> void:
 func _on_item_pressed() -> void:
 	choice.hide()
 	dialogue_text.show()
-	print("DEBUG: put item code here lol idk how")
+	action_queue.append([true,player_index,3,0,false,false])
+	confirm_move()
 
 func queue_text(new_text: String) -> void:
 	line_queue.append(new_text)

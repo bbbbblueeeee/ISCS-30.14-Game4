@@ -37,6 +37,7 @@ func update_critdamage(dmg: float):
 
 func update_speed(spd: int):
 	stats.speed += spd
+	print(stats.speed)
 
 func reset_stats():
 	stats.reset_stats()
@@ -47,7 +48,6 @@ func play_animation_attack():
 # Shows the Focus, AKA the arrow pointing to a character.
 func focus():
 	_focus.show()
-	print("showin focus")
 
 # Hides the Focus, AKA the arrow pointing to a character.
 func unfocus():
@@ -55,20 +55,21 @@ func unfocus():
 
 # Deals damage via subtraction
 func take_damage(value):
-	stats.current_health -= value - stats.block
-	
-	if value > stats.block:
-		if stats.block != 0:
-			damage_blocked.emit(title+" blocked "+str(stats.block)+" DAMAGE.")
-		stats.block = 0
-	else:
-		damage_blocked.emit(title+" blocked "+str(value)+" DAMAGE.")
-		stats.block -= value
-	
-	damage_taken.emit(title+" took "+str(clamp(value - stats.block,0,100))+" DAMAGE.")
-	update_hp_bar()
-	await get_tree().create_timer(0.5).timeout
-	play_animation_hurt()
+	if is_alive:
+		stats.current_health -= value - stats.block
+		
+		if value > stats.block:
+			if stats.block != 0:
+				damage_blocked.emit(title+" blocked "+str(stats.block)+" DAMAGE.")
+			stats.block = 0
+		else:
+			damage_blocked.emit(title+" blocked "+str(value)+" DAMAGE.")
+			stats.block -= value
+		
+		damage_taken.emit(title+" took "+str(clamp(value - stats.block,0,100))+" DAMAGE.")
+		update_hp_bar()
+		await get_tree().create_timer(0.5).timeout
+		play_animation_hurt()
 
 func heal(value):
 	stats.current_health += value

@@ -843,7 +843,7 @@ title = "Giant Bat"
 position = Vector2(717.1667, 305.16666)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_vo7ap")
-animation = &"death"
+animation = &"attack"
 flip_h = true
 
 [node name="focus" parent="Character" index="1" unique_id=519257910]
@@ -869,7 +869,7 @@ title = "Mimic"
 position = Vector2(511.50003, 487.50003)
 scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_oolf5")
-animation = &"hurt"
+animation = &"attack"
 flip_h = true
 
 [node name="focus" parent="Character2" index="1" unique_id=519257910]
@@ -885,6 +885,7 @@ max_value = 100.0
 value = 100.0
 
 [node name="StatsComponent" parent="Character2" index="4" unique_id=1088373865]
+attack = 20
 defense = 40
 speed = 11
 

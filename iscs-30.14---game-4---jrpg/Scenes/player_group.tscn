@@ -442,7 +442,6 @@ value = 100.0
 attack = 15
 defense = 7
 speed = 8
-crit_rate = 0.1
 
 [node name="Huntress" parent="." unique_id=1492319277 instance=ExtResource("1_14p02")]
 title = "Huntress"
