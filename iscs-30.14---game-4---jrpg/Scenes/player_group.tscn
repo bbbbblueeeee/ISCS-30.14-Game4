@@ -301,18 +301,18 @@ animations = [{
 [node name="PlayerGroup" type="Node2D" unique_id=143612907]
 script = ExtResource("1_052o3")
 
-[node name="Character" parent="." unique_id=1847470919 instance=ExtResource("1_14p02")]
+[node name="Warrior" parent="." unique_id=1847470919 instance=ExtResource("1_14p02")]
 title = "Warrior"
 
-[node name="AnimatedSprite2D" parent="Character" index="0" unique_id=1029185935]
+[node name="AnimatedSprite2D" parent="Warrior" index="0" unique_id=1029185935]
 sprite_frames = SubResource("SpriteFrames_f18lv")
 animation = &"hurt"
 
-[node name="ProgressBar" parent="Character" index="2" unique_id=1362434260]
+[node name="ProgressBar" parent="Warrior" index="2" unique_id=1362434260]
 max_value = 100.0
 value = 100.0
 
-[node name="StatsComponent" type="Node" parent="Character" unique_id=615995068]
+[node name="StatsComponent" type="Node" parent="Warrior" unique_id=615995068]
 script = ExtResource("4_ul4kx")
 attack = 15
 defense = 7
@@ -320,29 +320,29 @@ speed = 8
 crit_rate = 0.1
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
-[node name="Character2" parent="." unique_id=1492319277 instance=ExtResource("1_14p02")]
+[node name="Huntress" parent="." unique_id=1492319277 instance=ExtResource("1_14p02")]
 title = "Huntress"
 
-[node name="AnimatedSprite2D" parent="Character2" index="0" unique_id=1029185935]
+[node name="AnimatedSprite2D" parent="Huntress" index="0" unique_id=1029185935]
 sprite_frames = SubResource("SpriteFrames_m7u81")
 
-[node name="ProgressBar" parent="Character2" index="2" unique_id=1362434260]
+[node name="ProgressBar" parent="Huntress" index="2" unique_id=1362434260]
 offset_top = 60.0
 offset_bottom = 87.0
 max_value = 100.0
 value = 100.0
 
-[node name="StatsComponent" type="Node" parent="Character2" unique_id=2116710020]
+[node name="StatsComponent" type="Node" parent="Huntress" unique_id=2116710020]
 script = ExtResource("4_ul4kx")
 speed = 15
 crit_rate = 0.5
 crit_damage = 1.75
 metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 
-[connection signal="damage_blocked" from="Character" to="." method="_on_character_damage_blocked"]
-[connection signal="damage_taken" from="Character" to="." method="_on_character_damage_taken"]
-[connection signal="damage_blocked" from="Character2" to="." method="_on_character_2_damage_blocked"]
-[connection signal="damage_taken" from="Character2" to="." method="_on_character_2_damage_taken"]
+[connection signal="damage_blocked" from="Warrior" to="." method="_on_character_damage_blocked"]
+[connection signal="damage_taken" from="Warrior" to="." method="_on_character_damage_taken"]
+[connection signal="damage_blocked" from="Huntress" to="." method="_on_character_2_damage_blocked"]
+[connection signal="damage_taken" from="Huntress" to="." method="_on_character_2_damage_taken"]
 
-[editable path="Character"]
-[editable path="Character2"]
+[editable path="Warrior"]
+[editable path="Huntress"]

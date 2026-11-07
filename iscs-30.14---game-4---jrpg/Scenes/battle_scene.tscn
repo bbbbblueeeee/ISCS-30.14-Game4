@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://quthelngkysh" path="res://Assets/Sprites/Others/Background.png" id="1_hdvqd"]
 [ext_resource type="PackedScene" uid="uid://7i8u8repuecx" path="res://Scenes/player_group.tscn" id="3_anwxn"]
 [ext_resource type="Script" uid="uid://lw2a31mg0c4a" path="res://Scripts/choice.gd" id="5_3gnqe"]
+[ext_resource type="Script" uid="uid://x10dv5yb0y1k" path="res://Scripts/attack_options.gd" id="6_gt16y"]
 
 [node name="BattleScene" type="Node2D" unique_id=1401716114]
 script = ExtResource("1_e5vbs")
@@ -69,6 +70,27 @@ text = "Defend"
 layout_mode = 2
 text = "Item"
 
+[node name="Attack Options" type="VBoxContainer" parent="CanvasLayer" unique_id=774350944]
+offset_top = 105.0
+offset_right = 65.0
+offset_bottom = 137.0
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0.52, 5)
+offset_transform_scale = Vector2(1.595, 1.595)
+script = ExtResource("6_gt16y")
+
+[node name="op1" type="Button" parent="CanvasLayer/Attack Options" unique_id=17503546]
+layout_mode = 2
+
+[node name="op2" type="Button" parent="CanvasLayer/Attack Options" unique_id=1156143799]
+layout_mode = 2
+
+[node name="op3" type="Button" parent="CanvasLayer/Attack Options" unique_id=1089978312]
+layout_mode = 2
+
 [connection signal="pressed" from="CanvasLayer/Choice/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="CanvasLayer/Choice/Defend" to="." method="_on_defend_pressed"]
 [connection signal="pressed" from="CanvasLayer/Choice/Item" to="." method="_on_item_pressed"]
+[connection signal="pressed" from="CanvasLayer/Attack Options/op1" to="." method="_on_op_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/Attack Options/op2" to="." method="_on_op_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/Attack Options/op3" to="." method="_on_op_3_pressed"]

@@ -21,6 +21,18 @@ func play_animation_hurt():
 	sprite.play("hurt")
 	anim_player.play("hurt")
 
+func update_attack(dmg: int):
+	stats.attack = dmg
+	
+func update_critrate(rt: float):
+	stats.crit_rate = rt
+	
+func update_critdamage(dmg: float):
+	stats.crit_damage = dmg
+
+func update_speed(spd: int):
+	stats.speed += spd
+
 func play_animation_attack():
 	sprite.play("attack")
 

@@ -4,6 +4,7 @@ extends Node2D
 @onready var player_group: Node2D = $PlayerGroup
 @onready var choice: VBoxContainer = $CanvasLayer/Choice
 @onready var dialogue_text: RichTextLabel = $textBox/ColorRect/VBoxContainer/RichTextLabel
+@onready var atk_opts: VBoxContainer = $"CanvasLayer/Attack Options"
 
 @export var character_delay: float = 0.02
 @export var line_delay: float = 0.05 
@@ -100,7 +101,7 @@ func sort_actions(arr: Array):
 	returned_arr.append(pivot)
 	returned_arr.append_array(sort_actions(right_array))
 	return[returned_arr][0]
-
+	
 
 func resolve_actions():
 	action_queue = sort_actions(action_queue)
@@ -120,7 +121,7 @@ func resolve_actions():
 			active_stats = enemy_group.enemies[i[1]].stats
 			recipient = player_group.players[i[3]]
 		# if the action is an attack
-		if i[2]==1:
+		if i[2]==1:				
 			var final_dmg
 			var is_crit: bool = false
 			if randf()<active_stats.crit_rate:
@@ -173,11 +174,10 @@ func begin_choosing_action():
 
 func _on_attack_pressed() -> void:
 	choice.hide()
-	dialogue_text.show()
-	enemy_index = 0
-	enemy_group.start_choosing()
-	is_attacking=true
-
+	player_group.choose_attack(player_index)
+	atk_opts.show()
+	atk_opts.set_initial_focus()
+	
 
 func _on_defend_pressed() -> void:
 	choice.hide()
@@ -233,3 +233,22 @@ func print_to_dialogue(text: String) -> void:
 func _on_line_finished() -> void:
 	await get_tree().create_timer(line_delay).timeout
 	_update_queue()
+
+func atk_skill_confirmed():
+	atk_opts.hide()
+	dialogue_text.show()
+	enemy_index = 0
+	enemy_group.start_choosing()
+	is_attacking=true
+
+func _on_op_1_pressed() -> void:
+	player_group.set_atk_stats(player_index, 1)		
+	atk_skill_confirmed()
+
+func _on_op_2_pressed() -> void:
+	player_group.set_atk_stats(player_index, 2)		
+	atk_skill_confirmed()
+
+func _on_op_3_pressed() -> void:
+	player_group.set_atk_stats(player_index, 3)		
+	atk_skill_confirmed()
