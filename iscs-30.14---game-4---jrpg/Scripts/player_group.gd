@@ -56,6 +56,7 @@ func set_atk_stats(p: int, atk: int) -> void:
 	elif p == 1:
 		if atk == 1:
 			players[p].update_attack(20)
+			players[p].update_speed(30)
 		if atk == 2:
 			players[p].update_attack(25)
 			players[p].update_critrate(0.40)
