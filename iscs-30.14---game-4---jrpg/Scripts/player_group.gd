@@ -12,8 +12,6 @@ var players: Array = []
 # The for loop just instantiates the enemy sprites + positions
 func _ready() -> void:
 	players = get_children()
-	for i in players.size():
-		players[i].position = Vector2(100, i*180 + 110)
 	players[0].focus()
 
 

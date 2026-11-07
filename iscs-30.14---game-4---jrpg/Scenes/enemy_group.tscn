@@ -676,11 +676,21 @@ script = ExtResource("1_sib6e")
 title = "Giant Bat"
 
 [node name="AnimatedSprite2D" parent="Character" index="0" unique_id=1029185935]
-position = Vector2(5.333332, -32)
+position = Vector2(717.1667, 305.16666)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_vo7ap")
 animation = &"hurt"
+flip_h = true
+
+[node name="focus" parent="Character" index="1" unique_id=519257910]
+position = Vector2(690.66675, 198.66672)
+rotation = 0.0
 
 [node name="ProgressBar" parent="Character" index="2" unique_id=1362434260]
+offset_left = 628.4167
+offset_top = 244.41666
+offset_right = 758.4167
+offset_bottom = 271.4167
 max_value = 100.0
 value = 100.0
 
@@ -693,14 +703,21 @@ metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 title = "Mimic"
 
 [node name="AnimatedSprite2D" parent="Character2" index="0" unique_id=1029185935]
+position = Vector2(511.50003, 487.50003)
+scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_oolf5")
 animation = &"hurt"
+flip_h = true
+
+[node name="focus" parent="Character2" index="1" unique_id=519257910]
+position = Vector2(498.6667, 321.33337)
+rotation = 0.0
 
 [node name="ProgressBar" parent="Character2" index="2" unique_id=1362434260]
-offset_left = -62.666668
-offset_top = 36.0
-offset_right = 67.33333
-offset_bottom = 63.0
+offset_left = 435.5
+offset_top = 364.83362
+offset_right = 565.5
+offset_bottom = 391.83362
 max_value = 100.0
 value = 100.0
 
@@ -713,12 +730,21 @@ metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 title = "Slime"
 
 [node name="AnimatedSprite2D" parent="Character3" index="0" unique_id=1029185935]
+position = Vector2(785, 545)
+scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_qq5yi")
 animation = &"hurt"
+flip_h = true
+
+[node name="focus" parent="Character3" index="1" unique_id=519257910]
+position = Vector2(778.6667, 419.99994)
+rotation = 0.0
 
 [node name="ProgressBar" parent="Character3" index="2" unique_id=1362434260]
-offset_top = 32.0
-offset_bottom = 59.0
+offset_left = 714.3334
+offset_top = 461.00012
+offset_right = 844.3334
+offset_bottom = 488.00012
 max_value = 100.0
 value = 100.0
 

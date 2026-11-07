@@ -305,10 +305,20 @@ script = ExtResource("1_052o3")
 title = "Warrior"
 
 [node name="AnimatedSprite2D" parent="Warrior" index="0" unique_id=1029185935]
+position = Vector2(368.33334, 617.6667)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_f18lv")
 animation = &"hurt"
 
+[node name="focus" parent="Warrior" index="1" unique_id=519257910]
+position = Vector2(361.3334, 461.33334)
+rotation = 0.0
+
 [node name="ProgressBar" parent="Warrior" index="2" unique_id=1362434260]
+offset_left = 299.16663
+offset_top = 500.50027
+offset_right = 429.1666
+offset_bottom = 527.50024
 max_value = 100.0
 value = 100.0
 
@@ -324,11 +334,19 @@ metadata/_custom_type_script = "uid://b3px7jiimgqkn"
 title = "Huntress"
 
 [node name="AnimatedSprite2D" parent="Huntress" index="0" unique_id=1029185935]
+position = Vector2(196.83334, 514.1667)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_m7u81")
 
+[node name="focus" parent="Huntress" index="1" unique_id=519257910]
+position = Vector2(197.33334, 369.33344)
+rotation = 0.0
+
 [node name="ProgressBar" parent="Huntress" index="2" unique_id=1362434260]
-offset_top = 60.0
-offset_bottom = 87.0
+offset_left = 134.66666
+offset_top = 412.00012
+offset_right = 264.6667
+offset_bottom = 439.00012
 max_value = 100.0
 value = 100.0
 

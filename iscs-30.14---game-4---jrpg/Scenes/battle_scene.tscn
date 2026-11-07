@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dyv3b0wwbh5b4" path="res://Scenes/enemy_group.tscn" id="1_b25br"]
 [ext_resource type="Script" uid="uid://cy65fveoadnts" path="res://Scripts/battle_scene.gd" id="1_e5vbs"]
-[ext_resource type="Texture2D" uid="uid://quthelngkysh" path="res://Assets/Sprites/Others/Background.png" id="1_hdvqd"]
+[ext_resource type="Texture2D" uid="uid://bkw3hmbxr5pj8" path="res://Assets/BackGround.png" id="2_gt16y"]
 [ext_resource type="PackedScene" uid="uid://7i8u8repuecx" path="res://Scenes/player_group.tscn" id="3_anwxn"]
 [ext_resource type="Script" uid="uid://lw2a31mg0c4a" path="res://Scripts/choice.gd" id="5_3gnqe"]
 [ext_resource type="Script" uid="uid://x10dv5yb0y1k" path="res://Scripts/attack_options.gd" id="6_gt16y"]
@@ -12,9 +12,12 @@ script = ExtResource("1_e5vbs")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1775066157]
 self_modulate = Color(0.8004918, 0.8004904, 0.8004907, 1)
-offset_right = 750.0
-offset_bottom = 750.0
-texture = ExtResource("1_hdvqd")
+offset_left = -204.0
+offset_top = -170.0
+offset_right = 1272.0
+offset_bottom = 568.0
+texture = ExtResource("2_gt16y")
+expand_mode = 3
 
 [node name="EnemyGroup" parent="." unique_id=257778756 instance=ExtResource("1_b25br")]
 

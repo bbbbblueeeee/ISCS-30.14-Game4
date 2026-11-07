@@ -14,9 +14,6 @@ var index: int = 0
 # The for loop just instantiates the enemy sprites + positions
 func _ready() -> void:
 	enemies = get_children()
-	for i in enemies.size():
-		enemies[i].flip_sprite()
-		enemies[i].position = Vector2(650, i*150 + 80)
 
 # Used to control the switching of the focus
 func switch_focus(new, old):
