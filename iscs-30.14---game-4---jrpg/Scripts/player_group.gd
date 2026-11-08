@@ -73,10 +73,9 @@ func _on_character_damage_taken(text: String) -> void:
 
 
 func _on_just_died() -> void:
+	var game_over: bool = true
 	for player in players:
 		if player.is_alive:
-			print("player is alive")
-			break
-		print("players all dead")
-		players_dead.emit()
+			game_over = false
+	players_dead.emit(game_over)
 		

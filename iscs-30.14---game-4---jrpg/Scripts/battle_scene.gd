@@ -86,7 +86,12 @@ func generate_enemy_actions():
 			# used 1 and 2 for attack and defend
 			# can add more numbers for special enemy moves
 			var player_number = randi_range(0,1)
-			action_queue.append([false,enemy_number,action_number,player_number,false,false])
+			if player_group.players[player_number].is_alive:
+				action_queue.append([false,enemy_number,action_number,player_number,false,false])
+			else:
+				print("enemy switched target")
+				action_queue.append([false,enemy_number,action_number,1-player_number,false,false])
+				
 			enemy_number += 1
 
 # uses quicksort to sort all the actions based on speed

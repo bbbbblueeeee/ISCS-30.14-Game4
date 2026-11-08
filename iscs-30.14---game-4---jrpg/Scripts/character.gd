@@ -88,7 +88,6 @@ func _on_animation_finished() -> void:
 
 
 func _on_no_health() -> void:
-	print("dead")
 	sprite.play("death")
 	sprite.modulate=Color.DIM_GRAY
 	is_alive = false

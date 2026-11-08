@@ -65,6 +65,5 @@ func _on_just_died() -> void:
 	var game_over: bool = true
 	for enemy in enemies:
 		if enemy.is_alive:
-			print("enemy is alive")
 			game_over = false
 	enemies_dead.emit(game_over)
