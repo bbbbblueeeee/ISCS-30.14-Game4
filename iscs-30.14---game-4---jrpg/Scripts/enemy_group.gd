@@ -8,6 +8,7 @@ var action_queue: Array = []
 var is_battling: bool = false
 var is_attacking: bool = false
 var index: int = 0
+var is_all_dead: bool = false
 
 # Called when the node enters the scene tree for the first time.
 # get_children() populates the array with this node's child nodes
@@ -27,8 +28,12 @@ func unfocus_all():
 
 func start_choosing():
 	unfocus_all()
-	enemies[0].focus()
-	print("DEBUG: begin choosing enemy")
+	if not is_all_dead:
+		index = 0
+		while not enemies[index].is_alive:
+			index += 1
+		enemies[index].focus()
+		print("DEBUG: begin choosing enemy")
 
 
 func reset_block():

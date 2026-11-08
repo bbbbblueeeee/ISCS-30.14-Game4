@@ -50,11 +50,14 @@ func _process(delta: float) -> void:
 
 func check_if_focus_is_alive(copied_index, increment_value):
 	copied_index += increment_value
-	while (copied_index > 0 or copied_index < enemy_group.enemies.size() - 1):
+	print(copied_index)
+	while (copied_index >= 0 and copied_index <= enemy_group.enemies.size() - 1):
+		print(enemy_group.enemies[copied_index].is_alive)
 		if enemy_group.enemies[copied_index].is_alive:
 			enemy_group.switch_focus(copied_index, enemy_index)
 			return copied_index
 		copied_index += increment_value
+	print("Broke out of while loop")
 	return enemy_index
 
 func confirm_move() -> void:
@@ -188,11 +191,29 @@ func resolve_actions():
 		player.reset_stats()
 	for enemy in enemy_group.enemies:
 		enemy.reset_stats()
-	player_group.players[0].focus()
-	# Vinni Note: This is where the check for win/loss should happen
-	enable_space = true
-	queue_text("PRESS SPACE TO CHOOSE NEXT ACTION.")
-	
+	check_for_win_or_lose()
+	if enemy_group.is_all_dead:
+		queue_text("YOU WIN!")
+	elif player_group.is_all_dead:
+		queue_text("YOU LOSE!")
+	else:
+		player_group.players[0].focus()
+		enable_space = true
+		queue_text("PRESS SPACE TO CHOOSE NEXT ACTION.")
+
+func check_for_win_or_lose():
+	for i in enemy_group.enemies:
+		if i.is_alive:
+			break
+		if i == enemy_group.enemies[enemy_group.enemies.size()-1]:
+			enemy_group.is_all_dead = true
+	print("DEBUG: enemy_group.is_all_dead = " + str(enemy_group.is_all_dead))
+	for i in player_group.players:
+		if i.is_alive:
+			break
+		if i == player_group.players[player_group.players.size()-1]:
+			player_group.is_all_dead = true
+	print("DEBUG: player_group.is_all_dead = " + str(enemy_group.is_all_dead))
 	
 func _unhandled_input(event: InputEvent) -> void:
 	start_next_action(event)
@@ -284,8 +305,8 @@ func _on_line_finished() -> void:
 func atk_skill_confirmed():
 	atk_opts.hide()
 	dialogue_text.show()
-	enemy_index = 0
 	enemy_group.start_choosing()
+	enemy_index = enemy_group.index
 	is_attacking=true
 
 func _on_op_1_pressed() -> void:

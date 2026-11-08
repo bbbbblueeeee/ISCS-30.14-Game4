@@ -6,6 +6,7 @@ extends Node2D
 @onready var AttackOp3 = $"../CanvasLayer/Attack Options/op3"
 
 var players: Array = []
+var is_all_dead: bool = false
 
 # Called when the node enters the scene tree for the first time.
 # get_children() populates the array with this node's child nodes
