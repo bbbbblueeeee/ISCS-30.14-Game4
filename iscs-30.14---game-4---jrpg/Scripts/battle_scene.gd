@@ -107,7 +107,7 @@ func generate_enemy_actions():
 			else:
 				action_queue.append([false,enemy_number,action_number,1-player_number,false,false])
 				
-			enemy_number += 1
+		enemy_number += 1
 
 # uses quicksort to sort all the actions based on speed
 func sort_actions(arr: Array):
@@ -209,6 +209,7 @@ func resolve_actions():
 						active_stats.block = active_stats.defense
 						queue_text(actor.title+" DEFENDS themself.")
 				elif !hourglass_active:
+					
 					if i[1]==0:
 						queue_text(actor.title+" ATTACKS "+recipient.title+" for 10 DAMAGE.")
 						queue_text(actor.title+" RESTORES 5 HEALTH.")
@@ -220,6 +221,8 @@ func resolve_actions():
 						queue_text(actor.title+" DEFENDS themself.")
 					else:
 						recipient = enemy_group.enemies[i[3]]
+						if !recipient.is_alive:
+							recipient = enemy_group.enemies[1-i[3]]
 						queue_text(actor.title+" RESTORES 25 HEALTH to "+recipient.title)
 						recipient.heal(25)
 				else:
