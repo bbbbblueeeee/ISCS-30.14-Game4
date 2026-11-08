@@ -436,7 +436,10 @@ func _on_attack_focus_exited() -> void:
 	desc.text = ""
 
 func _on_defend_focus_entered() -> void:
-	desc.text = "Blocks enemy attack based on the character's defense."
+	if meditate_available:
+		desc.text = "Heals the active character based on their current DEF."
+	else:
+		desc.text = "Blocks enemy attack based on the character's defense."
 	desc.show()
 
 func _on_defend_focus_exited() -> void:
@@ -444,7 +447,10 @@ func _on_defend_focus_exited() -> void:
 	desc.text = ""
 
 func _on_item_focus_entered() -> void:
-	desc.text = "Select from a list of items to use in battle."
+	if choice_item.disabled:
+		desc.text = "You have no items."
+	else:
+		desc.text = "Select from a list of items to use in battle."
 	desc.show()
 
 func _on_item_focus_exited() -> void:
@@ -458,7 +464,7 @@ func _on_op_1_focus_entered() -> void:
 		elif player_index == 1:
 			desc.text = "Deals 20 DMG with an increased CRIT chance to an enemy of choice."
 	if is_picking_item:
-		desc.text = "Reduces enemy’s attack on all players by 50."
+		desc.text = "Reduces enemies' attack on all players by 50."
 	desc.show()
 
 func _on_op_1_focus_exited() -> void:
@@ -472,10 +478,7 @@ func _on_op_2_focus_entered() -> void:
 		elif player_index == 1:
 			desc.text = "Deals 10 DMG to all enemies."
 	if is_picking_item:
-		if meditate_available:
-			desc.text = "Heals the active character based on their current DEF."
-		else:
-			desc.text = "Stuns all enemies for this turn."
+		desc.text = "Stuns all enemies for this turn."
 	desc.show()
 
 func _on_op_2_focus_exited() -> void:
