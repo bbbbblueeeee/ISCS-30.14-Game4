@@ -3,6 +3,7 @@ extends Node2D
 @onready var enemy_group: Node2D = $EnemyGroup
 @onready var player_group: Node2D = $PlayerGroup
 @onready var choice: VBoxContainer = $CanvasLayer/Choice
+@onready var choice_item: Button = $CanvasLayer/Choice/Item
 @onready var dialogue_text: RichTextLabel = $textBox/ColorRect/VBoxContainer/RichTextLabel
 @onready var atk_opts: VBoxContainer = $"CanvasLayer/Attack Options"
 @onready var defend: Button = $CanvasLayer/Choice/Defend
@@ -285,6 +286,8 @@ func start_next_action(event: InputEvent) -> void:
 
 func begin_choosing_action():
 	choice.show()
+	if not bacon_available and not hourglass_available and not novel_available:
+		choice_item.disabled = true
 	choice.set_initial_focus()
 	dialogue_text.hide()
 	if tween and tween.is_running():
