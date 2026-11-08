@@ -61,12 +61,12 @@ func take_damage(value):
 		if value > stats.block:
 			if stats.block != 0:
 				damage_blocked.emit(title+" blocked "+str(stats.block)+" DAMAGE.")
+			damage_taken.emit(title+" took "+str(clamp(value - stats.block,0,100))+" DAMAGE.")
 			stats.block = 0
 		else:
 			damage_blocked.emit(title+" blocked "+str(value)+" DAMAGE.")
+			damage_taken.emit(title+" took "+str(clamp(value - stats.block,0,100))+" DAMAGE.")
 			stats.block -= value
-		
-		damage_taken.emit(title+" took "+str(clamp(value - stats.block,0,100))+" DAMAGE.")
 		update_hp_bar()
 		await get_tree().create_timer(0.5).timeout
 		play_animation_hurt()
