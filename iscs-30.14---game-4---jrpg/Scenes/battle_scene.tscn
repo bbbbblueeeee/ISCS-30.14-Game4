@@ -46,9 +46,18 @@ offset_bottom = 158.0
 custom_minimum_size = Vector2(0, 125)
 custom_maximum_size = Vector2(-1, 125)
 layout_mode = 2
+text = "hdfhdhfhdhfhhddhdh"
 fit_content = true
 scroll_following = true
 scroll_following_visible_characters = true
+
+[node name="Action Desc" type="RichTextLabel" parent="textBox/ColorRect" unique_id=563826727]
+layout_mode = 0
+offset_left = 350.0
+offset_top = 28.0
+offset_right = 718.0
+offset_bottom = 157.0
+horizontal_alignment = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1886232578]
 
@@ -94,9 +103,21 @@ layout_mode = 2
 
 [connection signal="enemies_dead" from="EnemyGroup" to="." method="_on_enemy_just_died"]
 [connection signal="players_dead" from="PlayerGroup" to="." method="_on_player_just_died"]
+[connection signal="focus_entered" from="CanvasLayer/Choice/Attack" to="." method="_on_attack_focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/Choice/Attack" to="." method="_on_attack_focus_exited"]
 [connection signal="pressed" from="CanvasLayer/Choice/Attack" to="." method="_on_attack_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Choice/Defend" to="." method="_on_defend_focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/Choice/Defend" to="." method="_on_defend_focus_exited"]
 [connection signal="pressed" from="CanvasLayer/Choice/Defend" to="." method="_on_defend_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Choice/Item" to="." method="_on_item_focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/Choice/Item" to="." method="_on_item_focus_exited"]
 [connection signal="pressed" from="CanvasLayer/Choice/Item" to="." method="_on_item_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Attack Options/op1" to="." method="_on_op_1_focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/Attack Options/op1" to="." method="_on_op_1_focus_exited"]
 [connection signal="pressed" from="CanvasLayer/Attack Options/op1" to="." method="_on_op_1_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Attack Options/op2" to="." method="_on_op_2_focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/Attack Options/op2" to="." method="_on_op_2_focus_exited"]
 [connection signal="pressed" from="CanvasLayer/Attack Options/op2" to="." method="_on_op_2_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Attack Options/op3" to="." method="_on_op_3_focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/Attack Options/op3" to="." method="_on_op_3_focus_exited"]
 [connection signal="pressed" from="CanvasLayer/Attack Options/op3" to="." method="_on_op_3_pressed"]

@@ -6,6 +6,7 @@ extends Node2D
 @onready var dialogue_text: RichTextLabel = $textBox/ColorRect/VBoxContainer/RichTextLabel
 @onready var atk_opts: VBoxContainer = $"CanvasLayer/Attack Options"
 @onready var defend: Button = $CanvasLayer/Choice/Defend
+@onready var desc: RichTextLabel = $"textBox/ColorRect/Action Desc"
 
 @export var character_delay: float = 0.02
 @export var line_delay: float = 0.05
@@ -31,6 +32,7 @@ var win_state: bool = false
 var lose_state: bool = false
 
 var is_picking_item: bool = false
+var is_picking_skill: bool = false
 var bacon_available: bool = true
 var hourglass_available: bool = true
 var hourglass_active: bool = false
@@ -296,13 +298,16 @@ func begin_choosing_action():
 
 func _on_attack_pressed() -> void:
 	choice.hide()
+	desc.hide()
 	player_group.choose_attack(player_index)
+	is_picking_skill = true
 	atk_opts.show()
 	atk_opts.set_initial_focus()
 	
 
 func _on_defend_pressed() -> void:
 	choice.hide()
+	desc.hide()
 	dialogue_text.show()
 	action_queue.append([true,player_index,2,0,false,false])
 	# 2 signifies the action is a defend
@@ -317,6 +322,7 @@ func _on_defend_pressed() -> void:
 
 func _on_item_pressed() -> void:
 	choice.hide()
+	desc.hide()
 	is_picking_item = true
 	player_group.set_items(bacon_available,hourglass_available,novel_available)
 	atk_opts.show()
@@ -360,6 +366,7 @@ func _on_line_finished() -> void:
 	_update_queue()
 
 func atk_skill_confirmed():
+	is_picking_skill = false
 	atk_opts.hide()
 	dialogue_text.show()
 	enemy_group.start_choosing()
@@ -415,3 +422,73 @@ func _on_player_just_died(game_over: bool) -> void:
 func _on_enemy_just_died(game_over: bool) -> void:
 	if game_over:
 		win_state = true
+
+#handles descriptions for actions when focus in on an action button
+func _on_attack_focus_entered() -> void:
+	desc.text = "Select a skill and deal certain amounts of attack damage to an enemy of your choice."
+	desc.show()
+
+func _on_attack_focus_exited() -> void:
+	desc.hide()
+	desc.text = ""
+
+func _on_defend_focus_entered() -> void:
+	desc.text = "Blocks enemy attack based on the character's defense."
+	desc.show()
+
+func _on_defend_focus_exited() -> void:
+	desc.hide()
+	desc.text = ""
+
+func _on_item_focus_entered() -> void:
+	desc.text = "Select from a list of items to use in battle."
+	desc.show()
+
+func _on_item_focus_exited() -> void:
+	desc.hide()
+	desc.text = ""
+
+func _on_op_1_focus_entered() -> void:
+	if is_picking_skill:
+		if player_index == 0:
+			desc.text = "Deals 30 DMG to an enemy of choice."
+		elif player_index == 1:
+			desc.text = "Deals 20 DMG with an increased CRIT chance to an enemy of choice."
+	if is_picking_item:
+		desc.text = "Reduces enemy’s attack on all players by 50."
+	desc.show()
+
+func _on_op_1_focus_exited() -> void:
+	desc.hide()
+	desc.text = ""
+
+func _on_op_2_focus_entered() -> void:
+	if is_picking_skill:
+		if player_index == 0:
+			desc.text = "Deals 15 DMG to all enemies."
+		elif player_index == 1:
+			desc.text = "Deals 10 DMG to all enemies."
+	if is_picking_item:
+		if meditate_available:
+			desc.text = "Heals the active character based on their current DEF."
+		else:
+			desc.text = "Stuns all enemies for this turn."
+	desc.show()
+
+func _on_op_2_focus_exited() -> void:
+	desc.hide()
+	desc.text = ""
+
+func _on_op_3_focus_entered() -> void:
+	if is_picking_skill:
+		if player_index == 0:
+			desc.text = "Deals base ATK DMG to an enemy of choice and increases all character's DEF by 2 permanently."
+		elif player_index == 1:
+			desc.text = "Deals base ATK DMG to an enemy of choice and increases all character's SPD by 1 permanently."
+	if is_picking_item:
+		desc.text = "Changes DEFEND action to MEDITATE. MEDITATE will only be used once selected after the change has been applied."
+	desc.show()
+
+func _on_op_3_focus_exited() -> void:
+	desc.hide()
+	desc.text = ""
