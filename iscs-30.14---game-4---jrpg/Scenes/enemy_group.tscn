@@ -885,6 +885,7 @@ max_value = 100.0
 value = 100.0
 
 [node name="StatsComponent" parent="Character2" index="4" unique_id=1088373865]
+max_health = 1.0
 attack = 20
 defense = 40
 speed = 11

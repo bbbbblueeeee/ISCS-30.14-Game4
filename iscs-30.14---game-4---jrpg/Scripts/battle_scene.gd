@@ -31,12 +31,14 @@ func _process(delta: float) -> void:
 	if is_attacking:
 		if Input.is_action_just_pressed("ui_up"):
 			if enemy_index > 0:
-				enemy_index -= 1
-				enemy_group.switch_focus(enemy_index, enemy_index+1)
+				enemy_index = check_if_focus_is_alive(enemy_index,-1)
+				print("UP SELECTED: " + str(enemy_index))
+				# enemy_group.switch_focus(enemy_index, enemy_index+1)
 		elif Input.is_action_just_pressed("ui_down"):
 			if enemy_index < enemy_group.enemies.size() - 1:
-				enemy_index += 1
-				enemy_group.switch_focus(enemy_index, enemy_index-1)
+				enemy_index = check_if_focus_is_alive(enemy_index,1)
+				print("DOWN SELECTED: " + str(enemy_index))
+				# enemy_group.switch_focus(enemy_index, enemy_index-1)
 		elif Input.is_action_just_pressed("ui_accept"): # ui_accept = either Enter or Space
 			action_queue.append([true,player_index,1,enemy_index,false,has_special_effect])
 			# true signifies the player is taking action
@@ -46,6 +48,14 @@ func _process(delta: float) -> void:
 			has_special_effect = false
 			confirm_move()
 
+func check_if_focus_is_alive(copied_index, increment_value):
+	copied_index += increment_value
+	while (copied_index > 0 or copied_index < enemy_group.enemies.size() - 1):
+		if enemy_group.enemies[copied_index].is_alive:
+			enemy_group.switch_focus(copied_index, enemy_index)
+			return copied_index
+		copied_index += increment_value
+	return enemy_index
 
 func confirm_move() -> void:
 	if player_index < player_group.players.size() - 1:
@@ -179,6 +189,7 @@ func resolve_actions():
 	for enemy in enemy_group.enemies:
 		enemy.reset_stats()
 	player_group.players[0].focus()
+	# Vinni Note: This is where the check for win/loss should happen
 	enable_space = true
 	queue_text("PRESS SPACE TO CHOOSE NEXT ACTION.")
 	
