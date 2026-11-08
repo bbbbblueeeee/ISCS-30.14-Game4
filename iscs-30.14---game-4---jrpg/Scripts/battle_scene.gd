@@ -5,6 +5,7 @@ extends Node2D
 @onready var choice: VBoxContainer = $CanvasLayer/Choice
 @onready var dialogue_text: RichTextLabel = $textBox/ColorRect/VBoxContainer/RichTextLabel
 @onready var atk_opts: VBoxContainer = $"CanvasLayer/Attack Options"
+@onready var defend: Button = $CanvasLayer/Choice/Defend
 
 @export var character_delay: float = 0.02
 @export var line_delay: float = 0.05
@@ -21,6 +22,14 @@ var is_printing: bool = false
 var enable_space: bool = false
 var win_state: bool = false
 var lose_state: bool = false
+
+var is_picking_item: bool = false
+var bacon_available: bool = true
+var hourglass_available: bool = true
+var hourglass_active: bool = false
+var novel_available: bool = true
+var novel_used: bool = false
+var meditate_available: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -64,6 +73,7 @@ func check_if_focus_is_alive(copied_index, increment_value):
 
 func confirm_move() -> void:
 	if player_index < player_group.players.size() - 1 and player_group.players[1].is_alive:
+		print(player_index)
 		player_index += 1
 		player_group.switch_focus(player_index, player_index-1)
 		begin_choosing_action()
@@ -146,33 +156,40 @@ func resolve_actions():
 		if actor.is_alive and !win_state and !lose_state:
 			# if the action is an attack
 			if i[2]==1:
-				var final_dmg
-				var is_crit: bool = false
-				if randf()<active_stats.crit_rate:
-					final_dmg = active_stats.attack*active_stats.crit_damage
-					is_crit = true
-				else:
-					final_dmg = active_stats.attack
-				if is_multitarget:
-					queue_text(actor.title+" ATTACKS all enemies for "+str(final_dmg)+" DAMAGE.")
-					for enemy in enemy_group.enemies:
-						enemy.take_damage(final_dmg)
-				else:
-					queue_text(actor.title+" ATTACKS "+recipient.title+" for "+str(final_dmg)+" DAMAGE.")
-					recipient.take_damage(final_dmg)
-				if is_crit:
-					queue_text("It's a CRITICAL HIT!")
-				if has_effect:
-					if i[1]==0:
-						queue_text("All players' DEFENSE increased by 2.")
+				if is_player_acting or !hourglass_active:
+					var final_dmg
+					var is_crit: bool = false
+					if randf()<active_stats.crit_rate:
+						final_dmg = active_stats.attack*active_stats.crit_damage
+						is_crit = true
 					else:
-						queue_text("All players' SPEED increased by 1.")
-				actor.play_animation_attack()
+						final_dmg = active_stats.attack
+					if is_multitarget:
+						queue_text(actor.title+" ATTACKS all enemies for "+str(final_dmg)+" DAMAGE.")
+						for enemy in enemy_group.enemies:
+							enemy.take_damage(final_dmg)
+					else:
+						queue_text(actor.title+" ATTACKS "+recipient.title+" for "+str(final_dmg)+" DAMAGE.")
+						recipient.take_damage(final_dmg)
+					if is_crit:
+						queue_text("It's a CRITICAL HIT!")
+					if has_effect:
+						if i[1]==0:
+							queue_text("All players' DEFENSE increased by 2.")
+						else:
+							queue_text("All players' SPEED increased by 1.")
+					actor.play_animation_attack()
+				else:
+					queue_text(actor.title+" is STUNNED by the HOURGLASS.")
 			elif i[2]==2:
 				if is_player_acting:
-					active_stats.block = active_stats.defense
-					queue_text(actor.title+" DEFENDS themself.")
-				else:
+					if meditate_available:
+						queue_text(actor.title+" RESTORES "+str(min(active_stats.defense,active_stats.max_health-active_stats.current_health))+" HEALTH.")
+						actor.heal(active_stats.defense)
+					else:
+						active_stats.block = active_stats.defense
+						queue_text(actor.title+" DEFENDS themself.")
+				elif !hourglass_active:
 					if i[1]==0:
 						queue_text(actor.title+" ATTACKS "+recipient.title+" for 10 DAMAGE.")
 						queue_text(actor.title+" RESTORES 5 HEALTH.")
@@ -186,11 +203,27 @@ func resolve_actions():
 						recipient = enemy_group.enemies[i[3]]
 						queue_text(actor.title+" RESTORES 25 HEALTH to "+recipient.title)
 						recipient.heal(25)
+				else:
+					queue_text(actor.title+" is STUNNED by the HOURGLASS.")
+					
 			elif i[2]==3:
-				queue_text(actor.title+" RESTORES 10 HEALTH.")
-				actor.heal(10)
+				if i[3]==0:
+					queue_text(actor.title+" used LONG BACON.")
+					queue_text("All players gain 50 BLOCK.")
+				elif i[3]==1:
+					hourglass_active = true
+					queue_text(actor.title+" used HOURGLASS.")
+					queue_text("Enemies will no longer take actions this round.")
+				else:
+					novel_used = true
+					queue_text(actor.title+" used TURNING NOVEL.")
+					queue_text("Players replaced DEFEND with MEDITATE.")
 			await get_tree().create_timer(1).timeout
 	action_queue.clear()
+	hourglass_active = false
+	if novel_used:
+		meditate_available = true
+		defend.text="Meditate"
 	is_battling = false
 	if !win_state and !lose_state:
 		for player in player_group.players:
@@ -256,9 +289,11 @@ func _on_defend_pressed() -> void:
 
 func _on_item_pressed() -> void:
 	choice.hide()
-	dialogue_text.show()
-	action_queue.append([true,player_index,3,0,false,false])
-	confirm_move()
+	is_picking_item = true
+	player_group.set_items(bacon_available,hourglass_available,novel_available)
+	atk_opts.show()
+	atk_opts.set_initial_focus()
+	
 
 func queue_text(new_text: String) -> void:
 	line_queue.append(new_text)
@@ -304,20 +339,46 @@ func atk_skill_confirmed():
 	is_attacking=true
 
 func _on_op_1_pressed() -> void:
-	player_group.set_atk_stats(player_index, 1)		
-	atk_skill_confirmed()
+	if is_picking_item:
+		for player in player_group.players:
+			player.stats.block = 50
+		atk_opts.hide()
+		dialogue_text.show()
+		is_picking_item = false
+		bacon_available = false
+		action_queue.append([true,player_index,3,0,false,false])
+		confirm_move()
+	else:
+		player_group.set_atk_stats(player_index, 1)		
+		atk_skill_confirmed()
 
 func _on_op_2_pressed() -> void:
-	player_group.set_atk_stats(player_index, 2)
-	atk_opts.hide()
-	dialogue_text.show()
-	action_queue.append([true,player_index,1,0,true,false])
-	confirm_move()
+	if is_picking_item:
+		atk_opts.hide()
+		dialogue_text.show()
+		is_picking_item = false
+		hourglass_available = false
+		action_queue.append([true,player_index,3,1,false,false])
+		confirm_move()
+	else:
+		player_group.set_atk_stats(player_index, 2)
+		atk_opts.hide()
+		dialogue_text.show()
+		action_queue.append([true,player_index,1,0,true,false])
+		confirm_move()
 
 func _on_op_3_pressed() -> void:
-	player_group.set_atk_stats(player_index, 3)
-	has_special_effect = true
-	atk_skill_confirmed()
+	if is_picking_item:
+		atk_opts.hide()
+		dialogue_text.show()
+		is_picking_item = false
+		novel_available = false
+		action_queue.append([true,player_index,3,2,false,false])
+		confirm_move()
+	else:
+		player_group.set_atk_stats(player_index, 3)
+		has_special_effect = true
+		atk_skill_confirmed()
 
 func _on_player_just_died(game_over: bool) -> void:
 	if game_over:

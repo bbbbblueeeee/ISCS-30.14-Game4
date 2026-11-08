@@ -28,6 +28,17 @@ func switch_focus(new, old):
 	players[old].unfocus()
 
 
+func set_items(bacon: bool,hourglass: bool,novel: bool):
+	AttackOp1.text = "Long Bacon"
+	AttackOp2.text = "Hourglass"
+	AttackOp3.text = "Turning Novel"
+	if !bacon:
+		AttackOp1.disabled=true
+	if !hourglass:
+		AttackOp2.disabled=true
+	if !novel:
+		AttackOp3.disabled=true
+
 func choose_attack(player: int):
 	if player == 0:
 		AttackOp1.text = "Grand Slash"
@@ -37,6 +48,9 @@ func choose_attack(player: int):
 		AttackOp1.text = "Calculated Strike"
 		AttackOp2.text = "Quick Throw"
 		AttackOp3.text = "Swift Step"
+	AttackOp1.disabled=false
+	AttackOp2.disabled=false
+	AttackOp3.disabled=false
 		
 func set_atk_stats(p: int, atk: int) -> void:
 	if p == 0:
