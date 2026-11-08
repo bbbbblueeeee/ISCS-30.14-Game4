@@ -6,6 +6,7 @@ extends Node2D
 @onready var AttackOp3 = $"../CanvasLayer/Attack Options/op3"
 
 var players: Array = []
+var is_all_dead: bool = false
 
 signal players_dead(status: bool)
 

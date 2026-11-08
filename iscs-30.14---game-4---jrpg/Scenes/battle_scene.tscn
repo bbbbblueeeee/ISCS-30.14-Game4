@@ -58,7 +58,7 @@ offset_top = 125.0
 offset_right = 65.0
 offset_bottom = 203.0
 offset_transform_enabled = true
-offset_transform_position_ratio = Vector2(0.52, 6.055)
+offset_transform_position_ratio = Vector2(0.52, 4.755)
 offset_transform_scale = Vector2(1.595, 1.595)
 script = ExtResource("5_3gnqe")
 
