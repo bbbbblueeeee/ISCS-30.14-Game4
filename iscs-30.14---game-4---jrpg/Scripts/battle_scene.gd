@@ -223,8 +223,14 @@ func resolve_actions():
 						recipient = enemy_group.enemies[i[3]]
 						if !recipient.is_alive:
 							recipient = enemy_group.enemies[1-i[3]]
-						queue_text(actor.title+" RESTORES 25 HEALTH to "+recipient.title)
-						recipient.heal(25)
+							if !recipient.is_alive:
+								queue_text(actor.title+" has no allies to heal.")
+							else:
+								queue_text(actor.title+" RESTORES 25 HEALTH to "+recipient.title)
+								recipient.heal(25)
+						else:
+							queue_text(actor.title+" RESTORES 25 HEALTH to "+recipient.title)
+							recipient.heal(25)
 				else:
 					queue_text(actor.title+" is STUNNED by the HOURGLASS.")
 					
