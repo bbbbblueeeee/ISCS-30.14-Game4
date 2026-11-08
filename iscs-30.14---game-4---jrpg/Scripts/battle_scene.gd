@@ -63,11 +63,10 @@ func check_if_focus_is_alive(copied_index, increment_value):
 	return enemy_index
 
 func confirm_move() -> void:
-	if player_index < player_group.players.size() - 1:
+	if player_index < player_group.players.size() - 1 and player_group.players[1].is_alive:
 		player_index += 1
 		player_group.switch_focus(player_index, player_index-1)
 		begin_choosing_action()
-		print("DEBUG: moved to player "+str(player_index))
 	else:
 		player_index = 0
 		player_group.unfocus_all()
@@ -89,7 +88,6 @@ func generate_enemy_actions():
 			if player_group.players[player_number].is_alive:
 				action_queue.append([false,enemy_number,action_number,player_number,false,false])
 			else:
-				print("enemy switched target")
 				action_queue.append([false,enemy_number,action_number,1-player_number,false,false])
 				
 			enemy_number += 1
@@ -199,7 +197,11 @@ func resolve_actions():
 			player.reset_stats()
 		for enemy in enemy_group.enemies:
 			enemy.reset_stats()
-		player_group.players[0].focus()
+		if player_group.players[0].is_alive:
+			player_group.players[0].focus()
+		else:
+			player_group.players[1].focus()
+			player_index = 1
 		enable_space = true
 		queue_text("PRESS SPACE TO CHOOSE NEXT ACTION.")
 	elif win_state:
@@ -221,7 +223,6 @@ func start_next_action(event: InputEvent) -> void:
 		enable_space = false
 
 func begin_choosing_action():
-	print("DEBUG: Is Attacking- "+str(is_attacking))
 	choice.show()
 	choice.set_initial_focus()
 	dialogue_text.hide()
