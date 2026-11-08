@@ -159,7 +159,7 @@ func resolve_actions():
 				recipient = enemy_group.enemies[i[3]]
 			else:
 				var reselect_enemy = 0
-				while not enemy_group.enemies[reselect_enemy].is_alive:
+				while (reselect_enemy <= 1 and not enemy_group.enemies[reselect_enemy].is_alive):
 					reselect_enemy += 1
 				recipient = enemy_group.enemies[reselect_enemy]
 		else:
