@@ -12,6 +12,13 @@ extends Node2D
 var player_index: int = 0
 var enemy_index: int = 0
 var action_queue: Array = []
+	# Inputs a 6-element array:
+	# 0 = Is the player acting
+	# 1 = index of the actor,
+	# 2 = action number (1=attack,2=defend(if player) or special move (if enemy)
+	# 3 = recepient index
+	# 4 = is it a multi-target attack
+	# 5 = is there a special effect (increase stat, heal, etc.)
 var is_attacking: bool = false
 var is_battling: bool = false
 var has_special_effect: bool = false
@@ -138,11 +145,23 @@ func resolve_actions():
 		if is_player_acting:
 			actor = player_group.players[i[1]]
 			active_stats = player_group.players[i[1]].stats
-			recipient = enemy_group.enemies[i[3]]
+			if enemy_group.enemies[i[3]].is_alive:
+				recipient = enemy_group.enemies[i[3]]
+			else:
+				var reselect_enemy = 0
+				while not enemy_group.enemies[reselect_enemy].is_alive:
+					reselect_enemy += 1
+				recipient = enemy_group.enemies[reselect_enemy]
 		else:
 			actor = enemy_group.enemies[i[1]]
 			active_stats = enemy_group.enemies[i[1]].stats
-			recipient = player_group.players[i[3]]
+			if player_group.players[i[3]].is_alive:
+				recipient = player_group.players[i[3]]
+			else:
+				if i[3] == 0:
+					recipient = player_group.players[1]
+				else:
+					recipient = player_group.players[0]
 		if actor.is_alive and !win_state and !lose_state:
 			# if the action is an attack
 			if i[2]==1:
