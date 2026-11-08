@@ -12,6 +12,7 @@ var is_alive: bool = true
 
 signal damage_taken(text: String)
 signal damage_blocked(text: String)
+signal just_died
 
 func _ready() -> void:
 	pass
@@ -37,7 +38,6 @@ func update_critdamage(dmg: float):
 
 func update_speed(spd: int):
 	stats.speed += spd
-	print(stats.speed)
 
 func reset_stats():
 	stats.reset_stats()
@@ -74,6 +74,7 @@ func take_damage(value):
 func heal(value):
 	stats.current_health += value
 	update_hp_bar()
+	print("got healed for "+str(value))
 
 # Specifically made for enemies to face the player characters, since
 # enemies are on the right.
@@ -91,3 +92,4 @@ func _on_no_health() -> void:
 	sprite.play("death")
 	sprite.modulate=Color.DIM_GRAY
 	is_alive = false
+	just_died.emit()

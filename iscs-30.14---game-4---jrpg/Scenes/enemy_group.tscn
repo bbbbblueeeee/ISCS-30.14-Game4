@@ -916,10 +916,13 @@ speed = 4
 
 [connection signal="damage_blocked" from="Character" to="." method="_on_character_damage_blocked"]
 [connection signal="damage_taken" from="Character" to="." method="_on_character_damage_taken"]
+[connection signal="just_died" from="Character" to="." method="_on_just_died"]
 [connection signal="damage_blocked" from="Character2" to="." method="_on_character_2_damage_blocked"]
 [connection signal="damage_taken" from="Character2" to="." method="_on_character_2_damage_taken"]
+[connection signal="just_died" from="Character2" to="." method="_on_just_died"]
 [connection signal="damage_blocked" from="Character3" to="." method="_on_character_3_damage_blocked"]
 [connection signal="damage_taken" from="Character3" to="." method="_on_character_3_damage_taken"]
+[connection signal="just_died" from="Character3" to="." method="_on_just_died"]
 
 [editable path="Character"]
 [editable path="Character2"]

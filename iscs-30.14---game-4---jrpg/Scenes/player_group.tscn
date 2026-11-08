@@ -471,8 +471,10 @@ crit_damage = 2.0
 
 [connection signal="damage_blocked" from="Warrior" to="." method="_on_character_damage_blocked"]
 [connection signal="damage_taken" from="Warrior" to="." method="_on_character_damage_taken"]
+[connection signal="just_died" from="Warrior" to="." method="_on_just_died"]
 [connection signal="damage_blocked" from="Huntress" to="." method="_on_character_2_damage_blocked"]
 [connection signal="damage_taken" from="Huntress" to="." method="_on_character_2_damage_taken"]
+[connection signal="just_died" from="Huntress" to="." method="_on_just_died"]
 
 [editable path="Warrior"]
 [editable path="Huntress"]

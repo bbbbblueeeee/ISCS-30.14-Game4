@@ -92,6 +92,8 @@ layout_mode = 2
 [node name="op3" type="Button" parent="CanvasLayer/Attack Options" unique_id=1089978312]
 layout_mode = 2
 
+[connection signal="enemies_dead" from="EnemyGroup" to="." method="_on_enemy_just_died"]
+[connection signal="players_dead" from="PlayerGroup" to="." method="_on_player_just_died"]
 [connection signal="pressed" from="CanvasLayer/Choice/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="CanvasLayer/Choice/Defend" to="." method="_on_defend_pressed"]
 [connection signal="pressed" from="CanvasLayer/Choice/Item" to="." method="_on_item_pressed"]

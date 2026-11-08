@@ -9,6 +9,8 @@ var is_battling: bool = false
 var is_attacking: bool = false
 var index: int = 0
 
+signal enemies_dead(status: bool)
+
 # Called when the node enters the scene tree for the first time.
 # get_children() populates the array with this node's child nodes
 # The for loop just instantiates the enemy sprites + positions
@@ -53,3 +55,11 @@ func _on_character_2_damage_taken(text: String) -> void:
 
 func _on_character_damage_taken(text: String) -> void:
 	BattleScene.queue_text(text)
+
+func _on_just_died() -> void:
+	var game_over: bool = true
+	for enemy in enemies:
+		if enemy.is_alive:
+			print("enemy is alive")
+			game_over = false
+	enemies_dead.emit(game_over)

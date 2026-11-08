@@ -19,6 +19,8 @@ var tween: Tween
 var line_queue: Array[String] = []
 var is_printing: bool = false
 var enable_space: bool = false
+var win_state: bool = false
+var lose_state: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -125,7 +127,7 @@ func resolve_actions():
 			actor = enemy_group.enemies[i[1]]
 			active_stats = enemy_group.enemies[i[1]].stats
 			recipient = player_group.players[i[3]]
-		if actor.is_alive:
+		if actor.is_alive and !win_state and !lose_state:
 			# if the action is an attack
 			if i[2]==1:
 				var final_dmg
@@ -169,18 +171,23 @@ func resolve_actions():
 						queue_text(actor.title+" RESTORES 25 HEALTH to "+recipient.title)
 						recipient.heal(25)
 			elif i[2]==3:
-				queue_text(actor.title+" RESTORES 5 HEALTH.")
-				actor.heal(5)
+				queue_text(actor.title+" RESTORES 10 HEALTH.")
+				actor.heal(10)
 			await get_tree().create_timer(1).timeout
 	action_queue.clear()
 	is_battling = false
-	for player in player_group.players:
-		player.reset_stats()
-	for enemy in enemy_group.enemies:
-		enemy.reset_stats()
-	player_group.players[0].focus()
-	enable_space = true
-	queue_text("PRESS SPACE TO CHOOSE NEXT ACTION.")
+	if !win_state and !lose_state:
+		for player in player_group.players:
+			player.reset_stats()
+		for enemy in enemy_group.enemies:
+			enemy.reset_stats()
+		player_group.players[0].focus()
+		enable_space = true
+		queue_text("PRESS SPACE TO CHOOSE NEXT ACTION.")
+	elif win_state:
+		queue_text("YOU WIN hooray")
+	elif lose_state:
+		queue_text("YOU LOSE aw man")
 	
 	
 func _unhandled_input(event: InputEvent) -> void:
@@ -292,3 +299,11 @@ func _on_op_3_pressed() -> void:
 	player_group.set_atk_stats(player_index, 3)
 	has_special_effect = true
 	atk_skill_confirmed()
+
+func _on_player_just_died(game_over: bool) -> void:
+	if game_over:
+		lose_state = true
+
+func _on_enemy_just_died(game_over: bool) -> void:
+	if game_over:
+		win_state = true

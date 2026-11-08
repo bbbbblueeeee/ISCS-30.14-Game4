@@ -7,6 +7,8 @@ extends Node2D
 
 var players: Array = []
 
+signal players_dead(status: bool)
+
 # Called when the node enters the scene tree for the first time.
 # get_children() populates the array with this node's child nodes
 # The for loop just instantiates the enemy sprites + positions
@@ -34,8 +36,6 @@ func choose_attack(player: int):
 		AttackOp1.text = "Calculated Strike"
 		AttackOp2.text = "Quick Throw"
 		AttackOp3.text = "Swift Step"
-	else:
-		print("No player chosen")
 		
 func set_atk_stats(p: int, atk: int) -> void:
 	if p == 0:
@@ -51,7 +51,9 @@ func set_atk_stats(p: int, atk: int) -> void:
 		elif atk == 3:
 			players[p].update_speed(1)
 			players[0].update_speed(1)
-		
+
+func on_just_died() -> void:
+	pass
 
 func _on_character_damage_blocked(text: String) -> void:
 	BattleScene.queue_text(text)
@@ -67,3 +69,13 @@ func _on_character_2_damage_taken(text: String) -> void:
 
 func _on_character_damage_taken(text: String) -> void:
 	BattleScene.queue_text(text)
+
+
+func _on_just_died() -> void:
+	for player in players:
+		if player.is_alive:
+			print("player is alive")
+			break
+		print("players all dead")
+		players_dead.emit()
+		
